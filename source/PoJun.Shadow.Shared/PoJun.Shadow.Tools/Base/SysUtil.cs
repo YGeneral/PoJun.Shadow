@@ -48,8 +48,8 @@ namespace PoJun.Shadow.Tools
         {
             if (MyHttpContext.Current == null || MyHttpContext.Current.Request == null || MyHttpContext.Current.Request.Headers == null)
                 return null;
-            if (MyHttpContext.Current.Request.Headers.ContainsKey(nameof(APILogConfig.NIO_LogTraceID)))
-                return MyHttpContext.Current.Request.Headers[nameof(APILogConfig.NIO_LogTraceID)].ToString();
+            if (MyHttpContext.Current.Request.Headers.ContainsKey(nameof(APILogConfig.PoJun_LogTraceID)))
+                return MyHttpContext.Current.Request.Headers[nameof(APILogConfig.PoJun_LogTraceID)].ToString();
             return null;
         } 
 

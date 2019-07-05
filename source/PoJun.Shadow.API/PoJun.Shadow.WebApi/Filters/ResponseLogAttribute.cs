@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using NIO.SpecialCar.LogFramework;
 using PoJun.Shadow.Api.ContractModel.Framework.Log;
 using PoJun.Shadow.IFramework.Log;
 using PoJun.Shadow.Tools;
@@ -44,7 +43,7 @@ namespace PoJun.Shadow.WebApi.Filters
             #region 新增接口返回日志
 
             object logTraceID = null;
-            context.HttpContext.Items.TryGetValue(nameof(APILogConfig.NIO_LogTraceID), out logTraceID);
+            context.HttpContext.Items.TryGetValue(nameof(APILogConfig.PoJun_LogTraceID), out logTraceID);
             if (logTraceID != null)
             {
                 object _requestTime = null;

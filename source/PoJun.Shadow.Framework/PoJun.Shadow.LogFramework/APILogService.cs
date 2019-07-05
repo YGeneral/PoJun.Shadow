@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NIO.SpecialCar.LogFramework
+namespace PoJun.Shadow.LogFramework
 {
     /// <summary>
     /// 接口日志服务

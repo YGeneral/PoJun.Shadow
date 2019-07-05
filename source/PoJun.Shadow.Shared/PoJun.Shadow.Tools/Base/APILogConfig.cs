@@ -12,12 +12,12 @@ namespace PoJun.Shadow.Tools
         /// <summary>
         /// 传入数据
         /// </summary>
-        public static readonly string NIO_JsonData = string.Empty;
+        public static readonly string PoJun_JsonData = string.Empty;
 
         /// <summary>
         /// 日志追踪ID(第一次新增日志的主键ID)
         /// </summary>
-        public static readonly string NIO_LogTraceID = string.Empty;
+        public static readonly string PoJun_LogTraceID = string.Empty;
 
         /// <summary>
         /// 接口请求时间

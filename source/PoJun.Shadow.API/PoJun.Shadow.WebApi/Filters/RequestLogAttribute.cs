@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using NIO.SpecialCar.LogFramework;
 using PoJun.Shadow.Api.ContractModel.Framework.Log;
 using PoJun.Shadow.Exception;
 using PoJun.Shadow.IFramework.Log;
@@ -95,8 +94,8 @@ namespace PoJun.Shadow.WebApi.Filters
             #region 向后传输数据
 
             //把日志ID写入
-            context.HttpContext.Items.Add(nameof(APILogConfig.NIO_LogTraceID), logTraceID);
-            context.HttpContext.Request.Headers.Add(nameof(APILogConfig.NIO_LogTraceID), logTraceID);
+            context.HttpContext.Items.Add(nameof(APILogConfig.PoJun_LogTraceID), logTraceID);
+            context.HttpContext.Request.Headers.Add(nameof(APILogConfig.PoJun_LogTraceID), logTraceID);
             //把接口请求时间写入
             context.HttpContext.Items.Add(nameof(APILogConfig.RequestTime), requestTime);
             context.HttpContext.Request.Headers.Add(nameof(APILogConfig.RequestTime), requestTime.ToString("yyyy-MM-dd HH:mm:ss.fff"));
