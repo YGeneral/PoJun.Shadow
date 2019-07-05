@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PoJun.Shadow.API\PoJun.Shadow.Api.IRepository\PoJun.Shadow.Api.IRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.IFramework\PoJun.Shadow.IFramework.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="External\Test\v1\Model\" />
+    <Folder Include="External\Test\v1\Entity\" />
+    <Folder Include="External\Test\v2\Entity\" />
+    <Folder Include="Inside\Test\Entity\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Entity\PoJun.Shadow.Entity.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Enum\PoJun.Shadow.Enum.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Tools\PoJun.Shadow.Tools.csproj" />
+  </ItemGroup>
+
+</Project>

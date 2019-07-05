@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PoJun.Shadow.Framework\PoJun.Shadow.BaseFramework\PoJun.Shadow.BaseFramework.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Framework\PoJun.Shadow.IFramework\PoJun.Shadow.IFramework.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Code\PoJun.Shadow.Code.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Entity\PoJun.Shadow.Entity.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Enum\PoJun.Shadow.Enum.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Exception\PoJun.Shadow.Exception.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Repository\PoJun.Shadow.Repository.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Tools\PoJun.Shadow.Tools.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.ContractModel\PoJun.Shadow.Api.ContractModel.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.IRepository\PoJun.Shadow.Api.IRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.IService\PoJun.Shadow.Api.IService.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.MongoDBRepository\PoJun.Shadow.Api.MongoDBRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.MySqlRepository\PoJun.Shadow.Api.MySqlRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.SqlServerRepository\PoJun.Shadow.Api.SqlServerRepository.csproj" />
+  </ItemGroup>
+
+</Project>

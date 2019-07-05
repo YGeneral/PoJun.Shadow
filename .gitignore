@@ -1,0 +1,8 @@
+bin/*.pdb
+*.suo
+*.user
+.vs
+bin
+obj
+.svn
+*.pubxml
