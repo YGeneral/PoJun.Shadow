@@ -18,6 +18,7 @@ namespace PoJun.Shadow.Api.ContractModel.External.Test.v1
         /// 年龄
         /// </summary>
         [Required(ErrorMessage = "【年龄】不能为空")]
+        [Range(1, int.MaxValue, ErrorMessage = "【年龄】必须是正整数")]
         public int Age { get; set; }
     }
 }
