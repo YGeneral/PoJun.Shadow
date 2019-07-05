@@ -3,7 +3,7 @@
 目前本框架支持的数据为：MongoDB、MySql、SqlServer(默认使用的数据库为MongoDB)
 
 ## 系统主键图
-![Image text](https://github.com/YGeneral/PoJun.Shadow/tree/master/doc/img/SystemComponentDiagram.png)
+![image](https://github.com/YGeneral/PoJun.Shadow/tree/master/doc/img/SystemComponentDiagram.png)
 
 ## 代码结构图
-![Image text](https://github.com/YGeneral/PoJun.Shadow/tree/master/doc/img/CodeStructuralDiagram.png)
+![image](https://github.com/YGeneral/PoJun.Shadow/tree/master/doc/img/CodeStructuralDiagram.png)
