@@ -1,0 +1,24 @@
+﻿Inside ---- 【对内使用的DTO对象】：
+存放仓储层的DTO对象和一些内部使用的DTO对象
+
+External ---- 【对外使用的DTO对象】：
+存放Service层、Controller层的DTO对象
+
+Shared ---- 【共享，一般都是存放需要共享的DTO对象或实体】
+
+Framework ---- 【存放所有Framework使用的DTO对象】
+
+
+结构示例：
+Inside [对内DTO对象]
+	Order [模块名称，模块下所有类的命名空间到模块为止]
+		Param [存放传入参数的DTO对象，每个模块都有一套，文件结尾以Param命名]
+		Model [存放返回结果的DTO对象，每个模块都有一套，文件结尾以Model命名]
+		Entity [存放入参或返回结果DTO对象中用到的实体，每个模块都有一套，文件结尾以Entity命名]
+
+External [对外DTO对象]
+	Order [模块名称]
+		v1 [接口版本，1代表版本号，模块下所有类的命名空间到模块为止]
+			Param [存放传入参数的DTO对象，每个模块都有一套，文件结尾以Param命名]
+			Model [存放返回结果的DTO对象，每个模块都有一套，文件结尾以Model命名]
+			Entity [存放入参或返回结果DTO对象中用到的实体，每个模块都有一套，文件结尾以Entity命名]

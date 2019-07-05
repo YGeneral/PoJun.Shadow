@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
+    <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="mongocsharpdriver" Version="2.5.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="PoJun.Dapper.Repository" Version="2.0.3" />
+    <PackageReference Include="PoJun.MongoDB.Repository" Version="3.0.0" />
+    <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.1" />
+    <PackageReference Include="PoJun.Util" Version="2.0.0" />
+    <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PoJun.Shadow.Framework\PoJun.Shadow.BaseFramework\PoJun.Shadow.BaseFramework.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Framework\PoJun.Shadow.IFramework\PoJun.Shadow.IFramework.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Framework\PoJun.Shadow.LogFramework\PoJun.Shadow.LogFramework.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Code\PoJun.Shadow.Code.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Entity\PoJun.Shadow.Entity.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Enum\PoJun.Shadow.Enum.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Exception\PoJun.Shadow.Exception.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Repository\PoJun.Shadow.Repository.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Tools\PoJun.Shadow.Tools.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.ContractModel\PoJun.Shadow.Api.ContractModel.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.IRepository\PoJun.Shadow.Api.IRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.IService\PoJun.Shadow.Api.IService.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.MongoDBRepository\PoJun.Shadow.Api.MongoDBRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.MySqlRepository\PoJun.Shadow.Api.MySqlRepository.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.Service\PoJun.Shadow.Api.Service.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Api.SqlServerRepository\PoJun.Shadow.Api.SqlServerRepository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

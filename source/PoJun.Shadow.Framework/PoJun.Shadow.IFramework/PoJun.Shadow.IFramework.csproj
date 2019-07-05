@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\PoJun.Shadow.API\PoJun.Shadow.Api.ContractModel\PoJun.Shadow.Api.ContractModel.csproj" />
+  </ItemGroup>
+
+</Project>

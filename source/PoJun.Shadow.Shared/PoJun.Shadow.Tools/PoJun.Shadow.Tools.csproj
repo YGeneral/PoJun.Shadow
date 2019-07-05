@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Pivotal.Discovery.ClientCore" Version="2.2.0" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.csproj" />
+    <ProjectReference Include="..\PoJun.Shadow.Enum\PoJun.Shadow.Enum.csproj" />
+  </ItemGroup>
+
+</Project>

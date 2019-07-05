@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="mongocsharpdriver" Version="2.5.1" />
+    <PackageReference Include="MongoDB.Bson" Version="2.5.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="PoJun.Dapper.Repository" Version="2.0.3" />
+    <PackageReference Include="PoJun.MongoDB.Repository" Version="3.0.0" />
+    <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.1" />
+    <PackageReference Include="PoJun.Util" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoJun.Shadow.Tools\PoJun.Shadow.Tools.csproj" />
+  </ItemGroup>
+
+</Project>
