@@ -11,10 +11,12 @@
 
 # MongoDB 使用帮助
 
-###MongoDB 与 RDBMS Where 语句比较
+### MongoDB 与 RDBMS Where 语句比较
 
-| 操作 | 格式 | 范例 | RDBMS中的类似语句|
-|:----    |:-------    |:--- |-- -|
+
+
+ 操作 | 格式 | 范例 | RDBMS中的类似语句
+----    |-------    |--- |---
 |等于 | {  key : value  } | db.col.find({"by":"破军"}).pretty() | where by = '破军'|
 |小于 | {  key :{$lt: value }} | db.col.find({"likes":{$lt:50}}).pretty() | where likes < 50|
 |小于或等于 | {  key :{$lte: value }} | db.col.find({"likes":{$lte:50}}).pretty() | where likes <= 50|
@@ -22,23 +24,23 @@
 |大于或等于 | {  key :{$gte: value }} | db.col.find({"likes":{$gte:50}}).pretty() | where likes >= 50|
 |不等于 | {  key :{$ne: value }} | db.col.find({"likes":{$ne:50}}).pretty() | where likes != 50|
 
-###MongoDB日常操作语句
+### MongoDB日常操作语句
 
-** mongo 不区分大小写查询 **
+#### mongo 不区分大小写查询 
 
 ``` 
 {"APIName":{$regex:/cgi-bin\/user\/getuserinfo/,'$options':'i'}}
 
 ``` 
 
-** mongo 正则匹配查询 **
+#### mongo 正则匹配查询 
 
 ``` 
 {"RequestBody":{$regex:/B27532093400375009/}}
 
 ```
 
-** mongo 修改**
+#### mongo 修改
 
 ``` 
 db.EvaluateRelation.update(               
@@ -48,7 +50,7 @@ db.EvaluateRelation.update(
 )
 ``` 
 
-** mongo 删除多条**
+#### mongo 删除多条
 
 ``` 
 db.AddedCount.remove(               
@@ -57,7 +59,7 @@ db.AddedCount.remove(
 )
 ``` 
 
-** 建立索引 **
+#### 建立索引 
 
 ``` 
 db.APILogs.createIndex({"RequestTime":-1})
@@ -65,9 +67,9 @@ db.APILogs.ensureIndex({"APIName":1,"IsError":1})
 
 ```
 
-###MongoDB 在C#里面的用法
+### MongoDB 在C#里面的用法
 
-** C#中模糊查询 **
+#### C#中模糊查询 
 
 ``` 
 var filter = Filter.Or(
@@ -76,13 +78,13 @@ var filter = Filter.Or(
 
 ``` 
 
-** C#中不区分大小写模糊查询(非标准写法) **
+#### C#中不区分大小写模糊查询(非标准写法) 
 
 ``` 
 var filter = Filter.Regex(x => x.EnglishName, new MongoDB.Bson.BsonRegularExpression(keyWord, "i"));
 ``` 
 
-** C#中不区分大小写模糊查询(标准写法) **
+#### C#中不区分大小写模糊查询(标准写法) 
 
 ``` 
 var filter = Filter.Or(
@@ -90,7 +92,7 @@ var filter = Filter.Or(
          Filter.Regex(x => x.EnglishName, new BsonRegularExpression(keyWord)));
 ``` 
 
-** C#分页查询 **
+#### C#分页查询 
 
 ``` 
 int skip = (pageNo - 1) * pageSize;
@@ -98,7 +100,7 @@ int skip = (pageNo - 1) * pageSize;
 await this.GetListAsync(filter: _filter, sort: Sort.Ascending(x => x.HireDate), limit: pageSize, skip: skip);
 ``` 
 
-** C#单条新增 **
+#### C#单条新增 
 
 ``` 
 //无状态
@@ -107,13 +109,13 @@ await this.InsertAsync(surveyAnswers);
 await this.InsertAsync(surveyAnswers, writeConcern: WriteConcern.Acknowledged);
 ``` 
 
-** C#查询主库**
+#### C#查询主库
 
 ``` 
 await this.CountAsync(filter: filter, readPreference: ReadPreference.PrimaryPreferred);
 ``` 
 
-** C#批量新增**
+#### C#批量新增
 
 ``` 
 //无状态
@@ -122,13 +124,13 @@ this.InsertBatchAsync(surveyAnswers);
 this.InsertBatchAsync(surveyAnswers, writeConcern: WriteConcern.Acknowledged);
 ``` 
 
-** C#更新状态**
+#### C#更新状态
 
 ``` 
 this.FindOneAndUpdateAsync(filter, update);
 ``` 
 
-** C#自增列实现**
+#### C#自增列实现
 
 ``` 
     public class Question : IAutoIncr<int>
@@ -138,7 +140,7 @@ this.FindOneAndUpdateAsync(filter, update);
 	}
 ``` 
 
-** C# string为主键，自动赋值**
+#### C# string为主键，自动赋值
 
 ``` 
     public class RecommendRelation : IEntity<string>
@@ -149,7 +151,7 @@ this.FindOneAndUpdateAsync(filter, update);
 	}
 ``` 
 
-** C# 查询部分字段**
+#### C# 查询部分字段
 
 ```
             var filter = Filter.And(Filter.In(x => x.ID, ids));
@@ -164,7 +166,7 @@ this.FindOneAndUpdateAsync(filter, update);
             return this.GetListAsync(filter: filter, projection: projection);
 ``` 
 
-** C#更新多层嵌套**
+#### C#更新多层嵌套
 
 ``` 
 
@@ -208,7 +210,7 @@ var filter = Filter.And(
   return await this.FindOneAndUpdateAsync(filter, update, writeConcern:      WriteConcern.Acknowledged);
 ``` 
 
-** C#更新单个实体**
+#### C#更新单个实体
 
 ``` 
 
