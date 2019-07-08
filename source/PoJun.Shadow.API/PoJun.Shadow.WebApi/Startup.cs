@@ -19,6 +19,7 @@ using PoJun.MongoDB.Repository;
 using PoJun.Shadow.BaseFramework;
 using PoJun.Shadow.Tools;
 using PoJun.Shadow.WebApi.Filters;
+using PoJun.Shadow.WebApi.Jobs;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -86,8 +87,13 @@ namespace PoJun.Shadow.WebApi
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();
             //注入 HttpClientHelp（如果不用可以注释掉）
-            services.AddTransient<HttpClientHelp>();            
-            services.Configure<ApiBehaviorOptions>(options => {
+            services.AddTransient<HttpClientHelp>();
+
+            //注入自定义job
+            services.AddSingleton<TestJob>();
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
                 //禁用.net core webapi 项目本身的模型参数绑定验证体系
                 options.SuppressModelStateInvalidFilter = true;
             });
@@ -114,7 +120,7 @@ namespace PoJun.Shadow.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IHttpContextAccessor httpContextAccessor)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             if (env.IsDevelopment())
             {
@@ -126,6 +132,11 @@ namespace PoJun.Shadow.WebApi
             //解决跨域（如果不用可以注释掉）
             app.UseCors("EnableCrossDomain");
             app.UseStaticFiles(); //注册wwwroot静态文件（如果不用可以注释掉）
+
+            //执行数据导入定时同步Job
+            var quartz = app.ApplicationServices.GetRequiredService<QuartzStartup>();
+            //【每分钟执行一次】
+            await quartz.Start<TestJob>("SyncTask", nameof(TestJob), "0 0/1 * * * ? ");
         }
     }
 }

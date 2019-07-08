@@ -1,0 +1,13 @@
+{
+    "author": "PoJun",
+    "classifications": [ "WebApi","Web/WebAPI","PoJun","PoJun.Shadow" ],
+    "name": "PoJun.Shadow",
+    "identity": "PoJun.Shadow", 
+    "shortName": "PoJun.Shadow",
+    "tags": {
+      "language": "C#" ,
+      "type":"project"
+    },
+    "sourceName": "PoJun.Shadow",  // 可选，要替换的名字
+    "preferNameDirectory": true  // 可选，添加目录  
+}

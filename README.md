@@ -9,6 +9,9 @@
 ![代码结构图](https://github.com/YGeneral/PoJun.Shadow/blob/master/doc/img/CodeStructuralDiagram.png)
 
 
+# [把绝影变成一个模板，生成自己的项目](https://mp.weixin.qq.com/s/dx7u5ZNYe4SpDAkWOtxHkA)
+
+
 # MongoDB 使用帮助
 
 ### MongoDB 与 RDBMS Where 语句比较
