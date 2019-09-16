@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PoJun.Shadow.Api.ContractModel.External.Test.v1
 {
-    public class AddUserParam
+    public class AddTest_UserParam
     {
         /// <summary>
         /// 姓名

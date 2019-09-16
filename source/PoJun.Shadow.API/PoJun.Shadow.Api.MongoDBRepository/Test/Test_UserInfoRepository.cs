@@ -14,17 +14,17 @@ namespace PoJun.Shadow.Api.MongoDBRepository.Test
     /// <summary>
     /// 
     /// </summary>
-    public class UserInfoRepository : BaseRepositoryToPoJun_Shadow<UserInfo, long>, IUserInfoRepository
+    public class Test_UserInfoRepository : BaseRepositoryToPoJun_Shadow<Test_UserInfo, long>, IUserInfoRepository
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<AddUserModel> Add(AddUserParam param)
+        public async Task<AddTest_UserModel> Add(AddTest_UserParam param)
         {
-            var result = await this.InsertAsync(param.MapTo<UserInfo>());
-            return new AddUserModel() { User = result.MapTo<UserInfoEntity>() };
+            var result = await this.InsertAsync(param.MapTo<Test_UserInfo>());
+            return new AddTest_UserModel() { User = result.MapTo<Test_UserInfoEntity>() };
         }
     }
 }

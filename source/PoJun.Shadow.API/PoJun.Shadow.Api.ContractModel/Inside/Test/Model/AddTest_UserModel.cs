@@ -5,8 +5,8 @@ using System.Text;
 
 namespace PoJun.Shadow.Api.ContractModel.Inside.Test
 {
-    public class AddUserModel
-    {
-        public UserInfoEntity User { get; set; }
+    public class AddTest_UserModel
+    { 
+        public Test_UserInfoEntity User { get; set; }
     }
 }

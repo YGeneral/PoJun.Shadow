@@ -7,7 +7,7 @@ namespace PoJun.Shadow.Api.ContractModel.Inside.Test
     /// <summary>
     /// 
     /// </summary>
-    public class AddUserParam
+    public class AddTest_UserParam
     {
         public string Name { get; set; }
 

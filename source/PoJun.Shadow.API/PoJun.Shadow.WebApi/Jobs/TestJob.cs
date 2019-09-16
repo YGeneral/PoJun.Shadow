@@ -39,7 +39,7 @@ namespace PoJun.Shadow.WebApi.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
             //调用Server层的代码实现业务逻辑
-            await userInfoService.Add(new Api.ContractModel.External.Test.v1.AddUserParam() { Age=new PoJun.Util.Helpers.Random().Next(int.MaxValue), Name=$"PoJun-{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}" });
+            await userInfoService.Add(new Api.ContractModel.External.Test.v1.AddTest_UserParam() { Age=new PoJun.Util.Helpers.Random().Next(int.MaxValue), Name=$"PoJun-{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}" });
         }
     }
 }

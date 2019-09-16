@@ -8,6 +8,6 @@ namespace PoJun.Shadow.Api.IRepository.Test
 {
     public interface IUserInfoRepository
     {
-        Task<AddUserModel> Add(AddUserParam param);
+        Task<AddTest_UserModel> Add(AddTest_UserParam param);
     }
 }

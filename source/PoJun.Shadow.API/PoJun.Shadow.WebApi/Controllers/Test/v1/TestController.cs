@@ -51,8 +51,8 @@ namespace PoJun.Shadow.WebApi.Controllers.Test.v1
         /// <param name="param"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("AddUser")]
-        public Task<BaseResponse> Add(AddUserParam param)
+        [Route("AddTest_User")]
+        public Task<BaseResponse> Add(AddTest_UserParam param)
         {
             /**
              * MongoDB底层驱动会自动创建库和表

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PoJun.Shadow.Api.ContractModel.Shared.Entity
 {
-    public class UserInfoEntity
+    public class Test_UserInfoEntity
     {
         /// <summary>
         /// 用户ID

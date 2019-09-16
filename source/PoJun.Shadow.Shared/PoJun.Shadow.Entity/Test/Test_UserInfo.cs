@@ -10,7 +10,7 @@ namespace PoJun.Shadow.Entity
     /// 用户信息
     /// </summary>
     [BsonIgnoreExtraElements]
-    public class UserInfo : IAutoIncr<long>
+    public class Test_UserInfo : IAutoIncr<long>
     {
         /// <summary>
         /// 用户ID

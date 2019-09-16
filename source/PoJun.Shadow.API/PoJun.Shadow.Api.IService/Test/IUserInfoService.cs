@@ -15,6 +15,6 @@ namespace PoJun.Shadow.Api.IService.Test
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        Task<BaseResponse> Add(AddUserParam param);
+        Task<BaseResponse> Add(AddTest_UserParam param);
     }
 }

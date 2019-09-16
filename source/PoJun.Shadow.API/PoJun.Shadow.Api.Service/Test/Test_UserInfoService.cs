@@ -14,13 +14,13 @@ namespace PoJun.Shadow.Api.Service.Test
     /// <summary>
     /// 
     /// </summary>
-    public class UserInfoService : IUserInfoService
+    public class Test_UserInfoService : IUserInfoService
     {
         #region 初始化
 
         private IUserInfoRepository userInfoRepository;
 
-        public UserInfoService(IUserInfoRepository _userInfoRepository)
+        public Test_UserInfoService(IUserInfoRepository _userInfoRepository)
         {
             userInfoRepository = _userInfoRepository;
         }
@@ -32,9 +32,9 @@ namespace PoJun.Shadow.Api.Service.Test
         /// </summary>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<BaseResponse> Add(AddUserParam param)
+        public async Task<BaseResponse> Add(AddTest_UserParam param)
         {
-            var result = await userInfoRepository.Add(param.MapTo<PoJun.Shadow.Api.ContractModel.Inside.Test.AddUserParam>());
+            var result = await userInfoRepository.Add(param.MapTo<PoJun.Shadow.Api.ContractModel.Inside.Test.AddTest_UserParam>());
             if (result == null)
                 throw new FailException();
             return new BaseResponse();
