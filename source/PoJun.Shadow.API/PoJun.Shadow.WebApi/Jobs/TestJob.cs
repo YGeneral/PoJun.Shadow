@@ -15,7 +15,7 @@ namespace PoJun.Shadow.WebApi.Jobs
     {
         #region 初始化
 
-        private IUserInfoService userInfoService;
+        private ITest_UserInfoService userInfoService;
         private IComponentContext componentContext;//Autofac上下文
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace PoJun.Shadow.WebApi.Jobs
         /// </summary>
         /// <param name="_componentContext"></param>
         /// <param name="_userInfoService"></param>
-        public TestJob(IComponentContext _componentContext, IUserInfoService _userInfoService)
+        public TestJob(IComponentContext _componentContext, ITest_UserInfoService _userInfoService)
         {
             //默认
             userInfoService = _userInfoService;

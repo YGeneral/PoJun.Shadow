@@ -14,7 +14,7 @@ namespace PoJun.Shadow.Api.Service.Test
     /// <summary>
     /// 
     /// </summary>
-    public class Test_UserInfoService : IUserInfoService
+    public class Test_UserInfoService : ITest_UserInfoService
     {
         #region 初始化
 

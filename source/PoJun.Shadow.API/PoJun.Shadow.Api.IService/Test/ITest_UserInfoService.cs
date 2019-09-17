@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PoJun.Shadow.Api.IService.Test
 {
-    public interface IUserInfoService
+    public interface ITest_UserInfoService
     {
         /// <summary>
         /// 

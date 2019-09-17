@@ -19,10 +19,10 @@ namespace PoJun.Shadow.WebApi.Controllers.Test.v1
     {
         #region 初始化
 
-        private IUserInfoService userInfoService;
+        private ITest_UserInfoService userInfoService;
         private IComponentContext componentContext;//Autofac上下文
 
-        public TestController(IComponentContext _componentContext, IUserInfoService _userInfoService)
+        public TestController(IComponentContext _componentContext, ITest_UserInfoService _userInfoService)
         {
             //默认
             userInfoService = _userInfoService;
