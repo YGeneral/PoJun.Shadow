@@ -1,4 +1,5 @@
-﻿using PoJun.Shadow.Enum;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using PoJun.Shadow.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,7 @@ namespace PoJun.Shadow.Entity
         /// <summary>
         /// 创建时间
         /// </summary>
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Sys_CreateTime { get; set; }
 
         /// <summary>
@@ -38,6 +40,7 @@ namespace PoJun.Shadow.Entity
         /// <summary>
         /// 修改时间
         /// </summary>
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Sys_UpdateTime { get; set; }
 
         /// <summary>
