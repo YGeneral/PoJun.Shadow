@@ -31,5 +31,10 @@ namespace PoJun.Shadow.Tools
         /// 环境
         /// </summary>
         public string Environment { get; set; }
+
+        /// <summary>
+        /// 跨域请求的来源
+        /// </summary>
+        public string RequestSource { get; set; }
     }
 }

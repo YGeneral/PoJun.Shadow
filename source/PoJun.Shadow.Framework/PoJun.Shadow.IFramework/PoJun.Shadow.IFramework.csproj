@@ -4,6 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Framework\PoJun.Shadow.IFramework\PoJun.Shadow.IFramework.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Framework\PoJun.Shadow.IFramework\PoJun.Shadow.IFramework.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\PoJun.Shadow.API\PoJun.Shadow.Api.ContractModel\PoJun.Shadow.Api.ContractModel.csproj" />
   </ItemGroup>

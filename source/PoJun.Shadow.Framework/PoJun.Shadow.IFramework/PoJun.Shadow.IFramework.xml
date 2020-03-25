@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PoJun.Shadow.IFramework</name>
+    </assembly>
+    <members>
+        <member name="T:PoJun.Shadow.IFramework.Log.IAPILogService">
+            <summary>
+            接口日志服务
+            </summary>
+        </member>
+        <member name="M:PoJun.Shadow.IFramework.Log.IAPILogService.AddRequestLogAsync(PoJun.Shadow.Api.ContractModel.Framework.Log.AddRequestLogParam)">
+            <summary>
+            新增请求日志
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoJun.Shadow.IFramework.Log.IAPILogService.AddResponseLogAsync(PoJun.Shadow.Api.ContractModel.Framework.Log.AddResponseLogParam)">
+            <summary>
+            新增响应日志
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

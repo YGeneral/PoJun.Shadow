@@ -82,7 +82,7 @@ namespace PoJun.Shadow.WebApi.Filters
             logParam.Level = 1;
             logParam.RequestBody = jsonData;
             //这里存储的当前服务器的IP+端口+接口地址+url参数
-            logParam.ServerHost = $"{PoJun.Util.Helpers.Web.Ip}:{context.HttpContext.Request.Host.Port}{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}";
+            logParam.ServerHost = $"{SysUtil.Ip}:{context.HttpContext.Request.Host.Port}{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}";
             logParam.SystemID = SysUtil.GetSystemId();
             logParam.TraceID = logTraceID;
             logParam.RequestTime = requestTime;

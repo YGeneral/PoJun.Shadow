@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PoJun.Shadow.Api.IService</name>
+    </assembly>
+    <members>
+        <member name="M:PoJun.Shadow.Api.IService.Test.ITest_UserInfoService.Add(PoJun.Shadow.Api.ContractModel.External.Test.v1.AddTest_UserParam)">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

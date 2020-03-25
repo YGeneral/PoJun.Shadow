@@ -4,6 +4,14 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Shared\PoJun.Shadow.Entity\PoJun.Shadow.Entity.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Shared\PoJun.Shadow.Entity\PoJun.Shadow.Entity.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="2.5.1" />
     <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.1" />

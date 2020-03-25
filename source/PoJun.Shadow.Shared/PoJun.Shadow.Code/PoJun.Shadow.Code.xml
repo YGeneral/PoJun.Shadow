@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PoJun.Shadow.Code</name>
+    </assembly>
+    <members>
+        <member name="T:PoJun.Shadow.Code.DetailedStatusCode">
+            <summary>
+            接口详细描述代码
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.None">
+            <summary>
+            无意义的，防止某些序列化工具在序列化时报错
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.Fail">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.Error">
+            <summary>
+            未知异常
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.ParamsError">
+            <summary>
+            参数异常
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.RepeatSubmit">
+            <summary>
+            重复提交数据
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.ConfigIsError">
+            <summary>
+            配置错误
+            </summary>3
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.DataIsNull">
+            <summary>
+            暂无数据
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.DetailedStatusCode.DataAlreadyExists">
+            <summary>
+            数据已存在
+            </summary>
+        </member>
+        <member name="T:PoJun.Shadow.Code.GatewayStatusCode">
+            <summary>
+            网关状态代码
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.GatewayStatusCode.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Code.GatewayStatusCode.Fail">
+            <summary>
+            失败
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,8 +1,11 @@
 ﻿using PoJun.Shadow.Enum;
+using PoJun.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -280,6 +283,38 @@ namespace PoJun.Shadow.Tools
         {
             DateTime startUnixTime = System.TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), TimeZoneInfo.Local);
             return startUnixTime.AddSeconds(unix);
+        }
+
+        #endregion
+
+        #region Ip(客户端Ip地址)
+
+        /// <summary>
+        /// 客户端Ip地址
+        /// </summary>
+        public static string Ip
+        {
+            get
+            {
+                var list = new[] { "127.0.0.1", "::1" };
+                var result = MyHttpContext.Current?.Connection?.RemoteIpAddress.SafeString();
+                if (string.IsNullOrWhiteSpace(result) || list.Contains(result))
+                    result = GetLanIp();
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 获取局域网IP
+        /// </summary>
+        private static string GetLanIp()
+        {
+            foreach (var hostAddress in Dns.GetHostAddresses(Dns.GetHostName()))
+            {
+                if (hostAddress.AddressFamily == AddressFamily.InterNetwork)
+                    return hostAddress.ToString();
+            }
+            return string.Empty;
         }
 
         #endregion

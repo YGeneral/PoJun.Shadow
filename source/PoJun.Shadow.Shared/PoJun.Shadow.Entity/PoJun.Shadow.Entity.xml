@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PoJun.Shadow.Entity</name>
+    </assembly>
+    <members>
+        <member name="T:PoJun.Shadow.Entity.BaseEntity">
+            <summary>
+            基础实体
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_CreateById">
+            <summary>
+            创建人Id
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_CreateByName">
+            <summary>
+            创建人姓名
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_UpdateById">
+            <summary>
+            修改人Id
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_UpdateByName">
+            <summary>
+            修改人姓名
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_UpdateTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.BaseEntity.Sys_DataState">
+            <summary>
+            数据状态
+            </summary>
+        </member>
+        <member name="T:PoJun.Shadow.Entity.Log.APILogs">
+            <summary>
+            接口日志
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.Entity.Log.APILogs.PTID">
+            <summary>
+            父追踪ID（简写）
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ID">
+            <summary>
+            日志追踪ID
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ParentTraceID">
+            <summary>
+            父追踪ID
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.SystemID">
+            <summary>
+            系统ID
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.APIName">
+            <summary>
+            接口名称
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ClientHost">
+            <summary>
+            客户端的域名或IP
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ServerHost">
+            <summary>
+            服务器的域名或IP
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.Level">
+            <summary>
+            等级ID（从1开始）
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.RequestTime">
+            <summary>
+            请求时间
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ResponseTime">
+            <summary>
+            [响应/错误]时间
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.TimeCost">
+            <summary>
+            请求耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.RequestBody">
+            <summary>
+            请求内容
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ResponseBody">
+            <summary>
+            响应内容
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.ErrorBody">
+            <summary>
+            错误内容
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.Headers">
+            <summary>
+            请求头
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Log.APILogs.IsError">
+            <summary>
+            是否为报错日志
+            </summary>
+        </member>
+        <member name="T:PoJun.Shadow.Entity.Test_UserInfo">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Entity.Test_UserInfo.ID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+    </members>
+</doc>

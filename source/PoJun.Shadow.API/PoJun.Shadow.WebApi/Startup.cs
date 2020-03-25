@@ -1,4 +1,4 @@
-ï»¿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +7,13 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using PoJun.MongoDB.Repository;
@@ -35,11 +36,15 @@ namespace PoJun.Shadow.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            //æ³¨å†ŒMongoDBä»“å‚¨ï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
-            RepositoryContainer.RegisterAll(AutofacModuleRegister.GetAllAssembliesName());
+            //×¢²áMongoDB²Ö´¢£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
+            RepositoryContainer.RegisterAll(AutofacModuleRegister.GetAllAssembliesName());            
+            services.AddControllers();
             services.AddMvc(option =>
             {
                 option.Filters.Add(typeof(ExceptionLogAttribute));
@@ -47,96 +52,110 @@ namespace PoJun.Shadow.WebApi
                 option.Filters.Add(typeof(ResponseLogAttribute));
                 option.MaxModelValidationErrors = 100;
             })
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddJsonOptions(option =>
-             {
-                 option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                 //å¿½ç•¥å¾ªç¯å¼•ç”¨
-                 option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                 //ä¸ä½¿ç”¨é©¼å³°æ ·å¼çš„key
-                 option.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                 //å¢åŠ å‚æ•°è‡ªåŠ¨å»é™¤å‰åç©ºæ ¼è½¬æ¢å™¨
-                 option.SerializerSettings.Converters.Add(new TrimmingConverter());
-             });
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddApiVersioning(options =>
+            .AddNewtonsoftJson(option =>
             {
-                //å½“è®¾ç½®ä¸º true æ—¶, API å°†è¿”å›å“åº”æ ‡å¤´ä¸­æ”¯æŒçš„ç‰ˆæœ¬ä¿¡æ¯
-                options.ReportApiVersions = true;
-                //æ­¤é€‰é¡¹å°†ç”¨äºä¸æä¾›ç‰ˆæœ¬çš„è¯·æ±‚ã€‚é»˜è®¤æƒ…å†µä¸‹, å‡å®šçš„ API ç‰ˆæœ¬ä¸º1.0ã€‚
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                //æ­¤é€‰é¡¹ç”¨äºæŒ‡å®šåœ¨è¯·æ±‚ä¸­æœªæŒ‡å®šç‰ˆæœ¬æ—¶è¦ä½¿ç”¨çš„é»˜è®¤ API ç‰ˆæœ¬ã€‚è¿™å°†é»˜è®¤ç‰ˆæœ¬ä¸º1.0ã€‚
-                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                option.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                //ºöÂÔÑ­»·ÒıÓÃ
+                option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                //²»Ê¹ÓÃÍÕ·åÑùÊ½µÄkey
+                option.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                //Ôö¼Ó²ÎÊı×Ô¶¯È¥³ıÇ°ºó¿Õ¸ñ×ª»»Æ÷
+                option.SerializerSettings.Converters.Add(new TrimmingConverter());
             });
-            //è§£å†³è·¨åŸŸï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
+            //½â¾ö¿çÓò£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
             services.AddCors(options =>
             {
                 options.AddPolicy("EnableCrossDomain", builder =>
                 {
-                    builder.AllowAnyOrigin()//å…è®¸ä»»ä½•æ¥æºçš„ä¸»æœºè®¿é—®
+                    //builder.AllowAnyOrigin()//ÔÊĞíÈÎºÎÀ´Ô´µÄÖ÷»ú·ÃÎÊ
+                    builder.WithOrigins(APIConfig.GetInstance().RequestSource)                    
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials();//æŒ‡å®šå¤„ç†cookie
+                    .AllowCredentials();//Ö¸¶¨´¦Àícookie
                 });
             });
-            //æ³¨å†Œæƒé™éªŒè¯
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddApiVersioning(options =>
+            {
+                //µ±ÉèÖÃÎª true Ê±, API ½«·µ»ØÏìÓ¦±êÍ·ÖĞÖ§³ÖµÄ°æ±¾ĞÅÏ¢
+                options.ReportApiVersions = true;
+                //´ËÑ¡Ïî½«ÓÃÓÚ²»Ìá¹©°æ±¾µÄÇëÇó¡£Ä¬ÈÏÇé¿öÏÂ, ¼Ù¶¨µÄ API °æ±¾Îª1.0¡£
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                //´ËÑ¡ÏîÓÃÓÚÖ¸¶¨ÔÚÇëÇóÖĞÎ´Ö¸¶¨°æ±¾Ê±ÒªÊ¹ÓÃµÄÄ¬ÈÏ API °æ±¾¡£Õâ½«Ä¬ÈÏ°æ±¾Îª1.0¡£
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+            });            
+            //×¢²áÈ¨ÏŞÑéÖ¤
             services.AddScoped<AuthenticationAttribute>();
 
-            //æ³¨å…¥ Quartzè°ƒåº¦ç±»ï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
+            //×¢Èë Quartzµ÷¶ÈÀà£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
             services.AddSingleton<QuartzStartup>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<IJobFactory, IOCJobFactory>();
-            //æ³¨å…¥ HttpClientHelpï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
+            //×¢Èë HttpClientHelp£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
             services.AddTransient<HttpClientHelp>();
 
-            //æ³¨å…¥è‡ªå®šä¹‰job
+            //×¢Èë×Ô¶¨Òåjob
             services.AddSingleton<TestJob>();
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
-                //ç¦ç”¨.net core webapi é¡¹ç›®æœ¬èº«çš„æ¨¡å‹å‚æ•°ç»‘å®šéªŒè¯ä½“ç³»
+                //½ûÓÃ.net core webapi ÏîÄ¿±¾ÉíµÄÄ£ĞÍ²ÎÊı°ó¶¨ÑéÖ¤ÌåÏµ
                 options.SuppressModelStateInvalidFilter = true;
             });
-            return RegisterAutofac(services);//æ³¨å†ŒAutofac
+            return RegisterAutofac(services);//×¢²áAutofac
         }
 
+        #region ×¢²áAutofac
+
         /// <summary>
-        /// æ³¨å†ŒAutofac
+        /// ×¢²áAutofac
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
         private IServiceProvider RegisterAutofac(IServiceCollection services)
         {
-            //å®ä¾‹åŒ–Autofacå®¹å™¨
+            //ÊµÀı»¯AutofacÈİÆ÷
             var builder = new ContainerBuilder();
-            //å°†Servicesä¸­çš„æœåŠ¡å¡«å……åˆ°Autofacä¸­
+            //½«ServicesÖĞµÄ·şÎñÌî³äµ½AutofacÖĞ
             builder.Populate(services);
-            //æ–°æ¨¡å—ç»„ä»¶æ³¨å†Œ    
+            //ĞÂÄ£¿é×é¼ş×¢²á    
             builder.RegisterModule<AutofacModuleRegister>();
-            //åˆ›å»ºå®¹å™¨
+            //´´½¨ÈİÆ÷
             var Container = builder.Build();
-            //ç¬¬ä¸‰æ–¹IOCæ¥ç®¡ coreå†…ç½®DIå®¹å™¨ 
+            //µÚÈı·½IOC½Ó¹Ü coreÄÚÖÃDIÈİÆ÷ 
             return new AutofacServiceProvider(Container);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, IHttpContextAccessor httpContextAccessor)
+        #endregion
+
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="httpContextAccessor"></param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            //app.UseHttpsRedirection();
             MyHttpContext.HttpContextAccessor = httpContextAccessor;
-            //è§£å†³è·¨åŸŸï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
+            //½â¾ö¿çÓò£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
             app.UseCors("EnableCrossDomain");
-            app.UseStaticFiles(); //æ³¨å†Œwwwrooté™æ€æ–‡ä»¶ï¼ˆå¦‚æœä¸ç”¨å¯ä»¥æ³¨é‡Šæ‰ï¼‰
-
-            //æ‰§è¡Œæ•°æ®å¯¼å…¥å®šæ—¶åŒæ­¥Job
-            var quartz = app.ApplicationServices.GetRequiredService<QuartzStartup>();
-            //ã€æ¯åˆ†é’Ÿæ‰§è¡Œä¸€æ¬¡ã€‘
-            await quartz.Start<TestJob>("SyncTask", nameof(TestJob), "0 0/1 * * * ? ");
+            app.UseStaticFiles(); //×¢²áwwwroot¾²Ì¬ÎÄ¼ş£¨Èç¹û²»ÓÃ¿ÉÒÔ×¢ÊÍµô£©
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            //Ö´ĞĞÊı¾İµ¼Èë¶¨Ê±Í¬²½Job
+            //var quartz = app.ApplicationServices.GetRequiredService<QuartzStartup>();
+            //¡¾Ã¿·ÖÖÓÖ´ĞĞÒ»´Î¡¿
+            //await quartz.Start<TestJob>("SyncTask", nameof(TestJob), "0 0/1 * * * ? ");
         }
     }
 }

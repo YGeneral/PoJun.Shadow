@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PoJun.Shadow.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:PoJun.Shadow.WebApi.Controllers.Test.v1.TestController.Add(PoJun.Shadow.Api.ContractModel.External.Test.v1.AddTest_UserParam)">
+            <summary>
+            新增用户
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.Filters.AuthenticationAttribute">
+            <summary>
+            权限验证
+            </summary>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.Filters.ExceptionLogAttribute">
+            <summary>
+            全局异常处理过滤器
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.WebApi.Filters.ExceptionLogAttribute.apiLogService">
+            <summary>
+            接口日志服务
+            </summary>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Filters.ExceptionLogAttribute.#ctor(PoJun.Shadow.IFramework.Log.IAPILogService)">
+            <summary>
+            初始化
+            </summary>
+            <param name="_apiLogService"></param>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.Filters.RequestLogAttribute">
+            <summary>
+            进入数据日志处理-过滤器
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.WebApi.Filters.RequestLogAttribute.apiLogService">
+            <summary>
+            接口日志服务
+            </summary>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Filters.RequestLogAttribute.#ctor(PoJun.Shadow.IFramework.Log.IAPILogService)">
+            <summary>
+            初始化
+            </summary>
+            <param name="_apiLogService"></param>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Filters.RequestLogAttribute.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            进入处理
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.Filters.ResponseLogAttribute">
+            <summary>
+            返回数据日志处理
+            </summary>
+        </member>
+        <member name="F:PoJun.Shadow.WebApi.Filters.ResponseLogAttribute.apiLogService">
+            <summary>
+            接口日志服务
+            </summary>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Filters.ResponseLogAttribute.#ctor(PoJun.Shadow.IFramework.Log.IAPILogService)">
+            <summary>
+            初始化 
+            </summary>
+            <param name="_apiLogService"></param>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Filters.ResponseLogAttribute.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
+            <summary>
+            新增返回日志
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.Jobs.TestJob">
+            <summary>
+            测试job
+            </summary>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Jobs.TestJob.#ctor(Autofac.IComponentContext,PoJun.Shadow.Api.IService.Test.ITest_UserInfoService)">
+            <summary>
+            初始化
+            </summary>
+            <param name="_componentContext"></param>
+            <param name="_userInfoService"></param>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Jobs.TestJob.Execute(Quartz.IJobExecutionContext)">
+            <summary>
+            执行任务
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.AutofacModuleRegister.GetAssemblyByName(System.String)">
+            <summary>
+            根据程序集名称获取程序集
+            </summary>
+            <param name="AssemblyName">程序集名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.AutofacModuleRegister.GetAllAssembliesName">
+            <summary>
+            获取所有MongoDB项目程序集名称
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Startup.RegisterAutofac(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册Autofac
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PoJun.Shadow.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="T:PoJun.Shadow.WebApi.TrimmingConverter">
+            <summary>
+            参数自动去除前后空格转换器
+            </summary>
+        </member>
+    </members>
+</doc>
