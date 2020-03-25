@@ -173,8 +173,12 @@ namespace PoJun.Shadow.WebApi
             //注入 HttpClientHelp（如果不用可以注释掉）
             services.AddTransient<HttpClientHelp>();
 
+            #region 自定义job注册
+
             //注入自定义job
-            services.AddSingleton<TestJob>();
+            //services.AddSingleton<TestJob>(); 
+
+            #endregion
 
             services.Configure<ApiBehaviorOptions>(options =>
             {

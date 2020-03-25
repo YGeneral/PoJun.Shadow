@@ -30,6 +30,16 @@
             跨域请求的来源
             </summary>
         </member>
+        <member name="P:PoJun.Shadow.Tools.APIConfig.SwaggerTitle">
+            <summary>
+            用于Swagger文档的Title显示
+            </summary>
+        </member>
+        <member name="P:PoJun.Shadow.Tools.APIConfig.SwaggerDescription">
+            <summary>
+            用于Swagger文档的Description显示 
+            </summary>
+        </member>
         <member name="T:PoJun.Shadow.Tools.APILogConfig">
             <summary>
             接口日志配置
