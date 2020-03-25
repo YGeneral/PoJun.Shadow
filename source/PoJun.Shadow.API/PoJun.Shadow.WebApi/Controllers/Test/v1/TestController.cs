@@ -11,17 +11,31 @@ using PoJun.Shadow.ContractModel;
 
 namespace PoJun.Shadow.WebApi.Controllers.Test.v1
 {
-    //[Route("api/[controller]")]
-    [Route("api/Test/v{version:apiVersion}")]
+    /// <summary>
+    /// v1版测试Controller
+    /// </summary>
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : BaseController
     {
         #region 初始化
 
+        /// <summary>
+        /// 
+        /// </summary>
         private ITest_UserInfoService userInfoService;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private IComponentContext componentContext;//Autofac上下文
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="_componentContext"></param>
+        /// <param name="_userInfoService"></param>
         public TestController(IComponentContext _componentContext, ITest_UserInfoService _userInfoService)
         {
             //默认
@@ -38,6 +52,10 @@ namespace PoJun.Shadow.WebApi.Controllers.Test.v1
 
         #endregion
 
+        /// <summary>
+        /// v1版测试Index接口
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("Index")]
         public string Index()

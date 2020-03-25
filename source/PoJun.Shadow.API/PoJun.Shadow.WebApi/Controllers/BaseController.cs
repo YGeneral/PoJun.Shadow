@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace PoJun.Shadow.WebApi.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Produces("application/json")]
-    [EnableCors("EnableCrossDomain")]//设置跨域处理的 代理
     [ServiceFilter(typeof(PoJun.Shadow.WebApi.Filters.AuthenticationAttribute))]
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
 
     }

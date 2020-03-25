@@ -36,5 +36,15 @@ namespace PoJun.Shadow.Tools
         /// 跨域请求的来源
         /// </summary>
         public string RequestSource { get; set; }
+
+        /// <summary>
+        /// 用于Swagger文档的Title显示
+        /// </summary>
+        public string SwaggerTitle { get; set; }
+
+        /// <summary>
+        /// 用于Swagger文档的Description显示 
+        /// </summary>
+        public string SwaggerDescription { get; set; }
     }
 }

@@ -13,14 +13,26 @@ using Steeltoe.Common.Hosting;
 
 namespace PoJun.Shadow.WebApi
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             //CreateHostBuilder(args).Build().Run();
             BuildWebHost(args).Run();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IWebHost BuildWebHost(string[] args) =>
            WebHost.CreateDefaultBuilder(args)
                .UseCloudHosting(APIConfig.GetInstance().Port)//部署在linux上才生效，接口的端口配置
