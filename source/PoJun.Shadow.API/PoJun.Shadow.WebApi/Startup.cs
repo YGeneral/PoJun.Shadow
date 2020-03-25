@@ -132,9 +132,9 @@ namespace PoJun.Shadow.WebApi
                     //添加文档信息
                     c.SwaggerDoc(item.GroupName, new OpenApiInfo
                     {
-                        Title = APIConfig.GetInstance().SwaggerTitle,
+                        Title = "绝影框架",
                         Version = item.ApiVersion.ToString(),
-                        Description = APIConfig.GetInstance().SwaggerDescription,
+                        Description = "ASP.NET CORE 3.1 WebApi",
                         Contact = new OpenApiContact
                         {
                             Name = "PoJun",
@@ -145,11 +145,14 @@ namespace PoJun.Shadow.WebApi
 
                     #region 读取xml信息
 
-                    // 使用反射获取xml文件。并构造出文件的路径
-                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                    // 启用xml注释. 该方法第二个参数启用控制器的注释，默认为false.
-                    c.IncludeXmlComments(xmlPath, true);
+                    //启用xml注释. 该方法第二个参数启用控制器的注释，默认为false.
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.ContractModel.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.ContractModel.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Enum.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Code.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.IService.xml"), true);
+                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.Service.xml"), true);
 
                     #endregion
                 }
