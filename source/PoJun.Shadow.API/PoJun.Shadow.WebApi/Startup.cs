@@ -142,20 +142,22 @@ namespace PoJun.Shadow.WebApi
                             Url = new Uri("https://github.com/YGeneral/PoJun.Shadow")
                         }
                     });
-
-                    #region 读取xml信息
-
-                    //启用xml注释. 该方法第二个参数启用控制器的注释，默认为false.
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.ContractModel.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.ContractModel.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Enum.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Code.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.IService.xml"), true);
-                    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.Service.xml"), true);
-
-                    #endregion
                 }
+
+                c.DocumentFilter<SwaggerEnumFilter>();
+
+                #region 读取xml信息
+
+                //启用xml注释. 该方法第二个参数启用控制器的注释，默认为false.
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.ContractModel.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.ContractModel.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Enum.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Code.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.IService.xml"), true);
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.Service.xml"), true);
+
+                #endregion
             }); 
 
             #endregion
@@ -220,7 +222,7 @@ namespace PoJun.Shadow.WebApi
         /// <param name="app"></param>
         /// <param name="env"></param>
         /// <param name="httpContextAccessor"></param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             if (env.IsDevelopment())
             {
