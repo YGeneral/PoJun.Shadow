@@ -25,6 +25,8 @@ namespace PoJun.Shadow.WebApi
             builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.LogFramework")).Where(a => a.Name.EndsWith("Service")).AsImplementedInterfaces();
             //注册Repository中的对象,Repository中的类要以Repository结尾，否则注册失败
             builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.Api.MongoDBRepository")).Where(a => a.Name.EndsWith("Repository")).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.Api.MySqlRepository")).Where(a => a.Name.EndsWith("Repository")).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.Api.SqlServerRepository")).Where(a => a.Name.EndsWith("Repository")).AsImplementedInterfaces();
         }
 
         #region 根据程序集名称获取程序集

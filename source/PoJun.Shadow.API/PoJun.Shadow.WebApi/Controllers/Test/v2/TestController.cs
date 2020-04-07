@@ -10,7 +10,7 @@ namespace PoJun.Shadow.WebApi.Controllers.Test.v2
     /// <summary>
     /// v2版测试Controller
     /// </summary>
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiVersion("2.0")]
     [ApiController]
     public class TestController : BaseController

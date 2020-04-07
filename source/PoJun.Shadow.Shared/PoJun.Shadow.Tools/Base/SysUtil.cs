@@ -208,22 +208,42 @@ namespace PoJun.Shadow.Tools
 
         #region 取随机数
 
+        private const int capacity10 = 10;
+        private const int capacity36 = 36;
+        private const int capacity62 = 62;
+
         /// <summary>
         /// 取随机数
         /// </summary>
-        /// <param name="size"></param>
-        /// <param name="lowerCase"></param>
+        /// <param name="type">1：纯数字【默认】；2：字母(大写)+数字；2：字母(大写+小写)+数字</param>
+        /// <param name="length">随机数长度</param>
         /// <returns></returns>
-        public static string RandomString(int size, bool lowerCase)
+        public static string RandomString(int type, int length)
         {
-            Random randomSeed = new Random();
-            StringBuilder randStr = new StringBuilder(size);
-            int start = (lowerCase) ? 97 : 65;
-            for (int i = 0; i < size; i++)
-                randStr.Append((char)(26 * randomSeed.NextDouble() + start));
+            char[] constant;
+            switch (type)
+            {
+                default:
+                case 1:
+                    constant = new char[capacity10] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                    break;
+                case 2:
+                    constant = new char[capacity36] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+                    break;
+                case 3:
+                    constant = new char[capacity62] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+                    break;
+            }
 
-            return randStr.ToString();
-        } 
+            System.Text.StringBuilder newRandom = new System.Text.StringBuilder(constant.Length);
+            Random rd = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                newRandom.Append(constant[rd.Next(constant.Length)]);
+            }
+            return newRandom.ToString();
+
+        }
 
         #endregion
 

@@ -13,10 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="External\Test\v1\Model\" />
     <Folder Include="External\Test\v1\Entity\" />
     <Folder Include="External\Test\v2\Entity\" />
     <Folder Include="Inside\Test\Entity\" />
+    <Folder Include="Inside\Test\Model\" />
+    <Folder Include="Inside\Test\Param\" />
   </ItemGroup>
 
   <ItemGroup>
