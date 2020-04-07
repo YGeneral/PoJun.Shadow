@@ -9,10 +9,17 @@ namespace PoJun.Shadow.Exception
     /// </summary>
     public class ParamErrorException : System.Exception
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ParamErrorException() : base()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public ParamErrorException(string message) : base(message)
         {
         }

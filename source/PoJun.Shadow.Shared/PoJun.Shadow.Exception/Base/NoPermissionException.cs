@@ -9,10 +9,17 @@ namespace PoJun.Shadow.Exception
     /// </summary>
     public class NoPermissionException : System.Exception
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public NoPermissionException() : base()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public NoPermissionException(string message) : base(message)
         {
         }

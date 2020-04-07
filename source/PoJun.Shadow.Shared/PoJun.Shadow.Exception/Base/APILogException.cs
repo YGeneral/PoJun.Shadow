@@ -9,10 +9,17 @@ namespace PoJun.Shadow.Exception
     /// </summary>
     public class APILogException : System.Exception
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public APILogException() : base()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public APILogException(string message) : base(message)
         {
         }

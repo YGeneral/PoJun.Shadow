@@ -9,10 +9,17 @@ namespace PoJun.Shadow.Exception
     /// </summary>
     public class RepeatSubmitException : System.Exception
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public RepeatSubmitException() : base()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public RepeatSubmitException(string message) : base(message)
         {
         }

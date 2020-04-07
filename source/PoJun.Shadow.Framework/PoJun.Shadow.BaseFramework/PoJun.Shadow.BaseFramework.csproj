@@ -13,12 +13,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="PoJun.Util" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="PoJun.Util" Version="3.0.1" />
+    <PackageReference Include="Steeltoe.Common.Http" Version="2.4.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PoJun.Shadow.LogFramework\PoJun.Shadow.LogFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
   </ItemGroup>
 
 </Project>

@@ -473,7 +473,6 @@ namespace PoJun.Shadow.BaseFramework
         /// <summary>
         /// Post请求[同步]
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>
@@ -669,7 +668,6 @@ namespace PoJun.Shadow.BaseFramework
         /// <summary>
         /// Post请求[异步]
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>

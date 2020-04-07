@@ -13,6 +13,12 @@ namespace PoJun.Shadow.WebApi.Filters
     /// </summary>
     public class AuthenticationAttribute : ActionFilterAttribute, IActionFilter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             //var workerUserId = string.Empty;

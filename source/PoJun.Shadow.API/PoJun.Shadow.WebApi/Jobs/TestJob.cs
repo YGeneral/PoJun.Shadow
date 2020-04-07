@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using PoJun.Shadow.Api.IService.Test;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -15,19 +14,17 @@ namespace PoJun.Shadow.WebApi.Jobs
     {
         #region 初始化
 
-        private ITest_UserInfoService userInfoService;
-        private IComponentContext componentContext;//Autofac上下文
+        //private IComponentContext componentContext;//Autofac上下文
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="_componentContext"></param>
-        /// <param name="_userInfoService"></param>
-        public TestJob(IComponentContext _componentContext, ITest_UserInfoService _userInfoService)
-        {
-            //默认
-            userInfoService = _userInfoService;
-        }
+        ///// <summary>
+        ///// 初始化
+        ///// </summary>
+        ///// <param name="_componentContext"></param>
+        //public TestJob(IComponentContext _componentContext)
+        //{
+        //    //默认
+            
+        //}
 
         #endregion
 
@@ -39,7 +36,7 @@ namespace PoJun.Shadow.WebApi.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
             //调用Server层的代码实现业务逻辑
-            await userInfoService.Add(new Api.ContractModel.External.Test.v1.AddTest_UserParam() { Age=new PoJun.Util.Helpers.Random().Next(int.MaxValue), Name=$"PoJun-{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}" });
+            await Task.FromResult(0);           
         }
     }
 }

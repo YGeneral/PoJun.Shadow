@@ -1,4 +1,6 @@
-﻿using PoJun.Shadow.Api.ContractModel.Framework.Log;
+﻿using PoJun.Dapper.IRepository;
+using PoJun.Shadow.Api.ContractModel.Framework.Log;
+using PoJun.Shadow.Entity.Log;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -181,7 +181,7 @@ namespace PoJun.Shadow.WebApi
             #region 自定义job注册
 
             //注入自定义job
-            //services.AddSingleton<TestJob>(); 
+            services.AddSingleton<TestJob>(); 
 
             #endregion
 
@@ -250,9 +250,9 @@ namespace PoJun.Shadow.WebApi
             #region 启动Job
 
             //执行数据导入定时同步Job
-            //var quartz = app.ApplicationServices.GetRequiredService<QuartzStartup>();
+            var quartz = app.ApplicationServices.GetRequiredService<QuartzStartup>();
             //【每分钟执行一次】
-            //await quartz.Start<TestJob>("SyncTask", nameof(TestJob), "0 0/1 * * * ? "); 
+            await quartz.Start<TestJob>("SyncTask", nameof(TestJob), "0 0/1 * * * ? ");
 
             #endregion
 

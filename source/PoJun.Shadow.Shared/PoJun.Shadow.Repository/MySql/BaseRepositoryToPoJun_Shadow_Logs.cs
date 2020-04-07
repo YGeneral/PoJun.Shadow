@@ -1,4 +1,5 @@
-﻿using PoJun.Dapper.Repository.MySql;
+﻿using PoJun.Dapper.IRepository;
+using PoJun.Dapper.Repository.MySql;
 using PoJun.MongoDB.Repository;
 using PoJun.MongoDB.Repository.IEntity;
 using System;
@@ -12,7 +13,7 @@ namespace PoJun.Shadow.Repository.MySql
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public class BaseRepositoryToPoJun_Shadow_Logs : BaseRepository
+    public class BaseRepositoryToPoJun_Shadow_Logs<T> : BaseRepository<T>, IBaseRepository<T> where T : class
     {
         /// <summary>
         /// 默认构造函数

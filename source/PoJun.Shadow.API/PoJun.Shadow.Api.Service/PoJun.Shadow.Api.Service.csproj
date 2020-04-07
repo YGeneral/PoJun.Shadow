@@ -30,4 +30,8 @@
     <ProjectReference Include="..\PoJun.Shadow.Api.SqlServerRepository\PoJun.Shadow.Api.SqlServerRepository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Test\" />
+  </ItemGroup>
+
 </Project>

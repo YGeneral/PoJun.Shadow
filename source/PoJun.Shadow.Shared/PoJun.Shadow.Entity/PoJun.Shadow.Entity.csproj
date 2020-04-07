@@ -13,12 +13,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Bson" Version="2.5.1" />
-    <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.1" />
+    <PackageReference Include="MongoDB.Bson" Version="2.9.3" />
+    <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PoJun.Shadow.Enum\PoJun.Shadow.Enum.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Test\" />
   </ItemGroup>
 
 </Project>

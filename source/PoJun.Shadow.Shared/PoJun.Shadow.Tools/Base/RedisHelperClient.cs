@@ -53,7 +53,6 @@ namespace PoJun.Shadow.Tools
         /// <summary>
         /// 获取缓存数据
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
         public static async Task<string> StringGetAsync(string key)

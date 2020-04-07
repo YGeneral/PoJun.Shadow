@@ -173,6 +173,9 @@ namespace PoJun.Shadow.Tools
         }
 
         private static string c_configSection = null;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string ConfigSection
         {
             get { return _configSection; }
@@ -180,6 +183,9 @@ namespace PoJun.Shadow.Tools
         }
 
         private static string c_configUrlPostfix = null;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string ConfigUrlPostfix
         {
             get { return _configUrlPostfix; }
@@ -187,12 +193,17 @@ namespace PoJun.Shadow.Tools
         }
 
         private static string c_defaultPath = null;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string DefaultPath
         {
             get { return _defaultPath; }
             set { c_defaultPath = value; }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static NameValueCollection AppSettings
         {
             get { return _configurationCollection; }

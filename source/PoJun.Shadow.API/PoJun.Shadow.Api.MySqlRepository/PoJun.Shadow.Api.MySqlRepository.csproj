@@ -5,10 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.4" />
-    <PackageReference Include="MySql.Data" Version="8.0.11" />
-    <PackageReference Include="PoJun.Dapper.Repository" Version="2.0.3" />
-    <PackageReference Include="PoJun.Util" Version="2.0.0" />
+    <PackageReference Include="PoJun.Dapper.Repository" Version="3.0.0" />
+    <PackageReference Include="PoJun.Util" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

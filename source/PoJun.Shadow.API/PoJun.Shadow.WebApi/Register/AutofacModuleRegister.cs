@@ -9,9 +9,15 @@ using System.Threading.Tasks;
 
 namespace PoJun.Shadow.WebApi
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class AutofacModuleRegister : Autofac.Module
     {
-        //重写Autofac管道Load方法，在这里注册注入
+        /// <summary>
+        /// 重写Autofac管道Load方法，在这里注册注入
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
             //注册Service中的对象,Service中的类要以Service结尾，否则注册失败

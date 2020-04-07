@@ -9,10 +9,17 @@ namespace PoJun.Shadow.Exception
     /// </summary>
     public class FailException : System.Exception
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public FailException() : base()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public FailException(string message) : base(message)
         {
         }

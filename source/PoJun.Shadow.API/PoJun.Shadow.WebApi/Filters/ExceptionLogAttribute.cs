@@ -36,6 +36,11 @@ namespace PoJun.Shadow.WebApi.Filters
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task OnExceptionAsync(ExceptionContext context)
         {
             var dto = new BaseResponse();

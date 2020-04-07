@@ -5,6 +5,9 @@ using System.Text;
 
 namespace PoJun.Shadow.Tools
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MyHttpContext
     {
         //public static IServiceProvider ServiceProvider;
@@ -21,9 +24,13 @@ namespace PoJun.Shadow.Tools
         //        return context;
         //    }
         //}
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static IHttpContextAccessor HttpContextAccessor;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static HttpContext Current
         {
             get
