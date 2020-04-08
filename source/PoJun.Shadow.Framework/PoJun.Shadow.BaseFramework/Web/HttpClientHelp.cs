@@ -1,5 +1,6 @@
 ﻿using PoJun.Shadow.Api.ContractModel.Framework.Log;
 using PoJun.Shadow.IFramework.Log;
+using PoJun.Shadow.IFramework.Web;
 using PoJun.Shadow.Tools;
 using PoJun.Util.Webs.Clients;
 using Steeltoe.Common.Discovery;
@@ -14,7 +15,7 @@ namespace PoJun.Shadow.BaseFramework
     /// <summary>
     /// HttpClientHelp
     /// </summary>
-    public class HttpClientHelp
+    public class HttpClientHelp : IHttpClientHelp
     {
         #region 初始化
 
