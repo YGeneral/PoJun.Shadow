@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Shared\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\PoJun.Shadow.ContractModel.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Project\PoJun.Shadow\source\PoJun.Shadow.Shared\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\PoJun.Shadow.ContractModel.xml</DocumentationFile>
+    <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
