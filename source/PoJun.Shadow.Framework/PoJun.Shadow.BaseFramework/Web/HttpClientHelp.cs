@@ -72,7 +72,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -154,7 +154,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -241,7 +241,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -323,7 +323,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -421,7 +421,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -516,7 +516,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -616,7 +616,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -711,7 +711,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName;
-                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Host;
+                log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
