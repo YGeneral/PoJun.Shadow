@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace PoJun.Shadow.Tools.Base
+namespace PoJun.Shadow.Tools
 {
     /// <summary>
 	/// 集合去重快速比较器
