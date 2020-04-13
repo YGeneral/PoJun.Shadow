@@ -11,7 +11,7 @@ namespace PoJun.Shadow.Repository.MongoDB
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TKey"></typeparam>
-    public class BaseRepositoryToPoJun_Shadow_Logs<TEntity, TKey> : MongoRepositoryAsync<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
+    public class BaseRepositoryToPoJun_Shadow_Logs<TEntity, TKey> : MongoRepositoryAsync<TEntity, TKey>, IBaseRepositoryToPoJun_Shadow_Logs<TEntity, TKey> where TEntity : class, IEntity<TKey>, new()
     {
         /// <summary>
         /// 默认构造函数
@@ -20,5 +20,12 @@ namespace PoJun.Shadow.Repository.MongoDB
         {
 
         }
+    }
+
+    /// <summary>
+    /// 【XXX业务库】基础仓储(MongoDB)
+    /// </summary>
+    public interface IBaseRepositoryToPoJun_Shadow_Logs<TEntity, TKey> : IMongoRepositoryAsync<TEntity, TKey>
+    {
     }
 }

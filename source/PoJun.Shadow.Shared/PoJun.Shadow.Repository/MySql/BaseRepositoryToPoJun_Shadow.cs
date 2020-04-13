@@ -9,7 +9,7 @@ namespace PoJun.Shadow.Repository.MySql
     /// <summary>
     /// 【XXX业务库】基础仓储(MySql)
     /// </summary>
-    public class BaseRepositoryToPoJun_Shadow<T> : BaseRepository<T>, IBaseRepository<T> where T : class
+    public class BaseRepositoryToPoJun_Shadow<T> : BaseRepository<T>, IBaseRepositoryToPoJun_Shadow<T> where T : class
     {
         /// <summary>
         /// 默认构造函数
@@ -18,5 +18,12 @@ namespace PoJun.Shadow.Repository.MySql
         {
 
         }
+    }
+
+    /// <summary>
+    /// 【XXX业务库】基础仓储(MySql)
+    /// </summary>
+    public interface IBaseRepositoryToPoJun_Shadow<T> : IBaseRepository<T>
+    {
     }
 }

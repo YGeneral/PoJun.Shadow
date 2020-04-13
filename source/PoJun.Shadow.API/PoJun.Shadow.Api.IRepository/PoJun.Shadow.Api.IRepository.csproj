@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PoJun.Dapper.Repository" Version="3.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.ContractModel\PoJun.Shadow.ContractModel.csproj" />
+    <ProjectReference Include="..\..\PoJun.Shadow.Shared\PoJun.Shadow.Repository\PoJun.Shadow.Repository.csproj" />
     <ProjectReference Include="..\PoJun.Shadow.Api.ContractModel\PoJun.Shadow.Api.ContractModel.csproj" />
   </ItemGroup>
 
