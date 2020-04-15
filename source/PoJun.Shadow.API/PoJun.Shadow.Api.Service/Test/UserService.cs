@@ -23,7 +23,7 @@ namespace PoJun.Shadow.Api.Service.Test
         /// <summary>
         /// 用户表仓储层
         /// </summary>
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
         /// 默认构造函数

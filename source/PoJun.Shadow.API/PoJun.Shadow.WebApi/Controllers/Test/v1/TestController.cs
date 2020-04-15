@@ -30,7 +30,7 @@ namespace PoJun.Shadow.WebApi.Controllers.Test.v1
         /// <summary>
         /// 用户表服务
         /// </summary>
-        private IUserService userService;
+        private readonly IUserService userService;
 
         /// <summary>
         /// 初始化

@@ -17,7 +17,7 @@ namespace PoJun.Shadow.LogFramework
         /// <summary>
         /// 日志接口仓储
         /// </summary>
-        public IAPILogsRepository apiLogsRepository;
+        public readonly IAPILogsRepository apiLogsRepository;
 
         /// <summary>
         /// 初始化
