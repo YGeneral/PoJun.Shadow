@@ -9,8 +9,61 @@
 ![代码结构图](https://github.com/YGeneral/PoJun.Shadow/blob/master/doc/img/CodeStructuralDiagram.png)
 
 
-# [把绝影变成一个模板，生成自己的项目](https://mp.weixin.qq.com/s/dx7u5ZNYe4SpDAkWOtxHkA)
+# [把绝影变成一个模板，生成自己的项目](https://www.showdoc.cc/392954602410449?page_id=2649330104222489)
 
+# 项目层级介绍
+
+### 1）Shared（共享层）
+ASHermed.Shadow.Code - 存放接口返回结果的统一代码
+ASHermed.Shadow.ContractModel - 存放接口统一返回结果的Model（无需改动）
+ASHermed.Shadow.Entity - 存放与数据库表结构一一对应的实体
+ASHermed.Shadow.Enum - 存放所有枚举的地方
+ASHermed.Shadow.Exception - 存放所有自定义异常的地方
+ASHermed.Shadow.Repository - 存放数据库基础仓储的地方
+ASHermed.Shadow.Tools - 存放本系统工具类的地方
+﻿
+### 2）Model（模型层）
+ASHermed.Shadow.Api.ContractModel - 存放项目内所有DTO对象的地方
+ 
+Inside ---- 【对内使用的DTO对象】：
+存放仓储层的DTO对象和一些内部使用的DTO对象
+External ---- 【对外使用的DTO对象】：
+存放Service层、Controller层的DTO对象
+Shared ---- 【共享，一般都是存放需要共享的DTO对象或实体】
+Framework ---- 【存放所有Framework使用的DTO对象】
+﻿
+结构示例：
+Inside [对内DTO对象]
+	Order [模块名称，模块下所有类的命名空间到模块为止]
+		Param [存放传入参数的DTO对象，每个模块都有一套，文件结尾以Param命名]
+		Model [存放返回结果的DTO对象，每个模块都有一套，文件结尾以Model命名]
+		Entity [存放入参或返回结果DTO对象中用到的实体，每个模块都有一套，文件结尾以Entity命名]
+
+External [对外DTO对象]
+	Order [模块名称]
+		v1 [接口版本，1代表版本号，模块下所有类的命名空间到模块为止]
+			Param [存放传入参数的DTO对象，每个模块都有一套，文件结尾以Param命名]
+			Model [存放返回结果的DTO对象，每个模块都有一套，文件结尾以Model命名]
+			Entity [存放入参或返回结果DTO对象中用到的实体，每个模块都有一套，文件结尾以Entity命名]
+﻿
+### 3）DataAccess（用户自定义仓储层）
+ASHermed.Shadow.Api.IRepository - 存放自定义仓储interface的地方
+ASHermed.Shadow.Api.MongoDBRepository - 存放MongoDB自定义数据库仓储的地方
+ASHermed.Shadow.Api.MySqlRepository - 存放MySql自定义数据库仓储的地方
+ASHermed.Shadow.Api.SqlServerRepository - 存放SqlServer自定义数据库仓储的地方
+﻿
+### 4）Framework（对外调用层[通过Api调用第三方系统的地方]）
+ASHermed.Shadow.BaseFramework - 存放用户调用第三方接口的HttpClientHelp工具类的层
+ASHermed.Shadow.IFramework - 存放Framework 下 interface 的地方
+ASHermed.Shadow.LogFramework - 存放接口日志记录的地方（无需改动）
+ASHermed.SingleSignOnFramework - 存放调用单点登录系统封装的地方
+﻿
+### 5）Service（业务逻辑层，可以按照模块拆分出多个Service层也可以只用一个Service层然后用文件夹名称区分不同的模块，可以根据个人喜好来定）
+ASHermed.Shadow.Api.IService - 存放 Service 下 interface 的地方
+ASHermed.Shadow.Api.Service - 存放Service的地方
+﻿
+### 6）WebApi（WebApi层）
+ASHermed.Shadow.WebApi - 存放对外Api的地方
 
 # MongoDB 使用帮助
 
