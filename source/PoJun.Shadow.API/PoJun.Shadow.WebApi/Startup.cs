@@ -123,7 +123,6 @@ namespace PoJun.Shadow.WebApi
 
             #region 注册Swagger服务
 
-            this.Provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
             services.AddSwaggerGen(c =>
             {
                 //多版本控制
@@ -206,6 +205,8 @@ namespace PoJun.Shadow.WebApi
             var builder = new ContainerBuilder();
             //将Services中的服务填充到Autofac中
             builder.Populate(services);
+            //获取接口版本信息
+            this.Provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
             //新模块组件注册    
             builder.RegisterModule<AutofacModuleRegister>();
             //创建容器
