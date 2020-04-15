@@ -77,6 +77,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = null;
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -159,6 +161,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = null;
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -246,6 +250,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = null;
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -328,6 +334,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = null;
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -386,8 +394,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json)
+        public T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
             using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
             {
@@ -403,7 +412,10 @@ namespace PoJun.Shadow.BaseFramework
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
-                    content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                    if (isMultilevelNestingJson)
+                        content = new StringContent(dicParameters["json"]);
+                    else
+                        content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -426,6 +438,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters);
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -481,8 +495,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json)
+        public string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
             using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
             {
@@ -498,7 +513,10 @@ namespace PoJun.Shadow.BaseFramework
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
-                    content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                    if (isMultilevelNestingJson)
+                        content = new StringContent(dicParameters["json"]);
+                    else
+                        content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -521,6 +539,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters);
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -570,6 +590,7 @@ namespace PoJun.Shadow.BaseFramework
 
         #region Post请求[异步]
 
+
         /// <summary>
         /// Post请求[异步]
         /// </summary>
@@ -581,8 +602,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public async Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json)
+        public async Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
             using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
             {
@@ -598,7 +620,10 @@ namespace PoJun.Shadow.BaseFramework
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
-                    content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                    if (isMultilevelNestingJson)
+                        content = new StringContent(dicParameters["json"]);
+                    else
+                        content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -621,6 +646,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters);
                 if (SysUtil.GetTraceId() != null)
                 {
@@ -676,8 +703,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public async Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json)
+        public async Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
             using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
             {
@@ -693,7 +721,10 @@ namespace PoJun.Shadow.BaseFramework
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
-                    content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                    if (isMultilevelNestingJson)
+                        content = new StringContent(dicParameters["json"]);
+                    else
+                        content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -716,6 +747,8 @@ namespace PoJun.Shadow.BaseFramework
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
                 log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
+                log_request_param.Level = 2;
+                log_request_param.ParentTraceID = SysUtil.GetTraceId();
                 log_request_param.RequestBody = Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters);
                 if (SysUtil.GetTraceId() != null)
                 {

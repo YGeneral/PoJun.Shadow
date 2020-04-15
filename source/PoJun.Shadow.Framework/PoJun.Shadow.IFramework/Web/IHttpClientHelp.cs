@@ -65,8 +65,9 @@ namespace PoJun.Shadow.IFramework.Web
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json);
+        T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false);
 
         /// <summary>
         /// Post请求[同步]
@@ -78,8 +79,9 @@ namespace PoJun.Shadow.IFramework.Web
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json);
+        string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false);
 
         /// <summary>
         /// Post请求[异步]
@@ -92,8 +94,9 @@ namespace PoJun.Shadow.IFramework.Web
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json);
+        Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false);
 
         /// <summary>
         /// Post请求[异步]
@@ -105,8 +108,9 @@ namespace PoJun.Shadow.IFramework.Web
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
+        /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json);
+        Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false);
 
 
     }
