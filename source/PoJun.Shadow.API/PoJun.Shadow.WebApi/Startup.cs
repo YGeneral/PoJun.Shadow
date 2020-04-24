@@ -89,11 +89,11 @@ namespace PoJun.Shadow.WebApi
             {
                 options.AddPolicy("EnableCrossDomain", builder =>
                 {
-                    //builder.AllowAnyOrigin()//允许任何来源的主机访问
-                    builder.WithOrigins(APIConfig.GetInstance().RequestSource)
+                    builder.AllowAnyOrigin()//允许任何来源的主机访问
+                    //builder.WithOrigins(APIConfig.GetInstance().RequestSource)
                     .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();//指定处理cookie
+                    .AllowAnyHeader();
+                    //.AllowCredentials();//指定处理cookie
                 });
             }); 
 
