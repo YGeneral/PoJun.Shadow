@@ -71,7 +71,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -155,7 +155,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -244,7 +244,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -328,7 +328,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -432,7 +432,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -533,7 +533,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -640,7 +640,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
@@ -741,7 +741,7 @@ namespace PoJun.Shadow.BaseFramework
                 #region 新增请求日志
 
                 var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName;
+                log_request_param.APIName = apiName.ToString().ToLower();
                 log_request_param.ClientHost = SysUtil.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;

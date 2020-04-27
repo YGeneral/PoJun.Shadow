@@ -75,7 +75,7 @@ namespace PoJun.Shadow.WebApi.Filters
             var requestTime = DateTime.Now;
 
             var logParam = new AddRequestLogParam();
-            logParam.APIName = context.HttpContext.Request.Path;
+            logParam.APIName = context.HttpContext.Request.Path.ToString().ToLower();
             //这里存储的是客户端的IP+端口
             logParam.ClientHost = $"{context.HttpContext.Connection.RemoteIpAddress.ToString()}:{context.HttpContext.Connection.RemotePort}";
             logParam.Headers = Newtonsoft.Json.JsonConvert.SerializeObject(context.HttpContext.Request.Headers.ToList());
