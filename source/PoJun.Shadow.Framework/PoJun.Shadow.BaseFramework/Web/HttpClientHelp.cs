@@ -22,15 +22,21 @@ namespace PoJun.Shadow.BaseFramework
         /// <summary>
         /// 日志服务
         /// </summary>
-        private IAPILogService apiLogService;
+        private readonly IAPILogService apiLogService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly IHttpClientFactory clientFactory;
 
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="_apiLogService"></param>
-        public HttpClientHelp(IAPILogService _apiLogService)
+        public HttpClientHelp(IAPILogService _apiLogService, IHttpClientFactory _clientFactory)
         {
             apiLogService = _apiLogService;
+            clientFactory = _clientFactory;
         }
 
         #endregion
@@ -48,7 +54,7 @@ namespace PoJun.Shadow.BaseFramework
         /// <returns></returns>
         public T HttpGet<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100)
         {
-            using (HttpClient client = new HttpClient())
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -132,7 +138,7 @@ namespace PoJun.Shadow.BaseFramework
         /// <returns></returns>
         public string HttpGet(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0)
         {
-            using (HttpClient client = new HttpClient())
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -221,7 +227,7 @@ namespace PoJun.Shadow.BaseFramework
         /// <returns></returns>
         public async Task<T> HttpGetAsync<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100)
         {
-            using (HttpClient client = new HttpClient())
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -305,7 +311,7 @@ namespace PoJun.Shadow.BaseFramework
         /// <returns></returns>
         public async Task<string> HttpGetAsync(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0)
         {
-            using (HttpClient client = new HttpClient())
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -390,15 +396,14 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>
-        /// <param name="httpHandler">httpHandler</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
-            using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -491,15 +496,14 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>
-        /// <param name="httpHandler">httpHandler</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
-            using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -598,15 +602,14 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>
-        /// <param name="httpHandler">httpHandler</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public async Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public async Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
-            using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 
@@ -699,15 +702,14 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="host">域名</param>
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="dicParameters">接口参数</param>
-        /// <param name="httpHandler">httpHandler</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
         /// <returns></returns>
-        public async Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, DiscoveryHttpClientHandler httpHandler = null, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public async Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
         {
-            using (HttpClient client = ((httpHandler == null) ? new HttpClient() : new HttpClient(httpHandler)))
+            var client = clientFactory.CreateClient("base");
             {
                 #region Http基础设置
 

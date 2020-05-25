@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -25,6 +26,7 @@ using PoJun.Shadow.BaseFramework;
 using PoJun.Shadow.Tools;
 using PoJun.Shadow.WebApi.Filters;
 using PoJun.Shadow.WebApi.Jobs;
+using Polly;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
@@ -95,7 +97,7 @@ namespace PoJun.Shadow.WebApi
                     .AllowAnyHeader();
                     //.AllowCredentials();//指定处理cookie
                 });
-            }); 
+            });
 
             #endregion
 
@@ -105,17 +107,18 @@ namespace PoJun.Shadow.WebApi
 
             services.AddApiVersioning(options =>
                 {
-                //当设置为 true 时, API 将返回响应标头中支持的版本信息
-                options.ReportApiVersions = true;
-                //此选项将用于不提供版本的请求。默认情况下, 假定的 API 版本为1.0。
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                //此选项用于指定在请求中未指定版本时要使用的默认 API 版本。这将默认版本为1.0。
-                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                    //当设置为 true 时, API 将返回响应标头中支持的版本信息
+                    options.ReportApiVersions = true;
+                    //此选项将用于不提供版本的请求。默认情况下, 假定的 API 版本为1.0。
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    //此选项用于指定在请求中未指定版本时要使用的默认 API 版本。这将默认版本为1.0。
+                    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                    options.ApiVersionReader = new UrlSegmentApiVersionReader();
                 })
                 .AddVersionedApiExplorer(options =>
                 {
-                // 版本名的格式：v+版本号
-                options.GroupNameFormat = "'v'V";
+                    //版本名的格式：v+版本号
+                    options.GroupNameFormat = "'v'V";
                     options.AssumeDefaultVersionWhenUnspecified = true;
                 });
 
@@ -157,7 +160,7 @@ namespace PoJun.Shadow.WebApi
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"PoJun.Shadow.Api.Service.xml"), true);
 
                 #endregion
-            }); 
+            });
 
             #endregion
 
@@ -170,7 +173,7 @@ namespace PoJun.Shadow.WebApi
             //注入Quartz调度类（如果不用可以注释掉）
             services.AddSingleton<QuartzStartup>();
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-            services.AddSingleton<IJobFactory, IOCJobFactory>(); 
+            services.AddSingleton<IJobFactory, IOCJobFactory>();
 
             #endregion
 
@@ -180,7 +183,7 @@ namespace PoJun.Shadow.WebApi
             #region 自定义job注册
 
             //注入自定义job
-            services.AddSingleton<TestJob>(); 
+            services.AddSingleton<TestJob>();
 
             #endregion
 
@@ -189,6 +192,9 @@ namespace PoJun.Shadow.WebApi
                 //禁用.net core webapi 项目本身的模型参数绑定验证体系
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            services.AddHttpClient();
+            services.AddHttpClient("base").AddTransientHttpErrorPolicy(x => x.RetryAsync(3));//添加重试策略。 若请求失败，最多可重试三次;
             return RegisterAutofac(services);//注册Autofac
         }
 
@@ -235,7 +241,7 @@ namespace PoJun.Shadow.WebApi
             #region 解决跨域
 
             //解决跨域（如果不用可以注释掉）
-            app.UseCors("EnableCrossDomain"); 
+            app.UseCors("EnableCrossDomain");
 
             #endregion
 
@@ -268,7 +274,7 @@ namespace PoJun.Shadow.WebApi
                 {
                     c.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", SysUtil.GetSystemId() + item.ApiVersion);
                 }
-            }); 
+            });
 
             #endregion
         }
