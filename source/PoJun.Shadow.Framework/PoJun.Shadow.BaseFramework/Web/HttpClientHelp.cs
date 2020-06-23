@@ -6,6 +6,7 @@ using PoJun.Util.Webs.Clients;
 using Steeltoe.Common.Discovery;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace PoJun.Shadow.BaseFramework
         /// 初始化
         /// </summary>
         /// <param name="_apiLogService"></param>
+        /// <param name="_clientFactory"></param>
         public HttpClientHelp(IAPILogService _apiLogService, IHttpClientFactory _clientFactory)
         {
             apiLogService = _apiLogService;
@@ -102,26 +104,46 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
-                var result = Encoding.UTF8.GetString(resultBytes);
+                var result = string.Empty;
 
-                #endregion
+                Exception exs = null;
 
-                #region 新增响应日志
+                try
+                {
+                    //异步发送请求
+                    Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
+                    if (resultBytes == null || resultBytes.Any())
+                        return default(T);
+                    result = Encoding.UTF8.GetString(resultBytes);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = result;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                apiLogService.AddResponseLogAsync(log_response_param).Wait();
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = result;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (string.IsNullOrEmpty(result) && exs != null)
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    apiLogService.AddResponseLogAsync(log_response_param).Wait();
+
+                    #endregion
+                }
 
                 #endregion
 
                 #region 返回结果
 
+                if (string.IsNullOrEmpty(result))
+                    return default(T);
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
 
                 #endregion
@@ -186,21 +208,39 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
-                var result = Encoding.UTF8.GetString(resultBytes);
+                var result = string.Empty;
 
-                #endregion
+                Exception exs = null;
 
-                #region 新增响应日志
+                try
+                {
+                    //异步发送请求
+                    Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
+                    if (resultBytes == null || resultBytes.Any())
+                        return null;
+                    result = Encoding.UTF8.GetString(resultBytes);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = result;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                apiLogService.AddResponseLogAsync(log_response_param).Wait();
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = result;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (string.IsNullOrEmpty(result) && exs != null)
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    apiLogService.AddResponseLogAsync(log_response_param).Wait();
+
+                    #endregion
+                }
 
                 #endregion
 
@@ -275,26 +315,46 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                Byte[] resultBytes = await client.GetByteArrayAsync(url);
-                var result = Encoding.UTF8.GetString(resultBytes);
+                var result = string.Empty;
 
-                #endregion
+                Exception exs = null;
 
-                #region 新增响应日志
+                try
+                {
+                    //异步发送请求
+                    Byte[] resultBytes = await client.GetByteArrayAsync(url);
+                    if (resultBytes == null || resultBytes.Any())
+                        return default(T);
+                    result = Encoding.UTF8.GetString(resultBytes);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = result;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                await apiLogService.AddResponseLogAsync(log_response_param);
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = result;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (string.IsNullOrEmpty(result) && exs != null)
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    await apiLogService.AddResponseLogAsync(log_response_param);
+
+                    #endregion
+                }
 
                 #endregion
 
                 #region 返回结果
 
+                if (string.IsNullOrEmpty(result))
+                    return default(T);
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
 
                 #endregion
@@ -359,21 +419,39 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                Byte[] resultBytes = await client.GetByteArrayAsync(url);
-                var result = Encoding.UTF8.GetString(resultBytes);
+                var result = string.Empty;
 
-                #endregion
+                Exception exs = null;
 
-                #region 新增响应日志
+                try
+                {
+                    //异步发送请求
+                    Byte[] resultBytes = await client.GetByteArrayAsync(url);
+                    if (resultBytes == null || resultBytes.Any())
+                        return null;
+                    result = Encoding.UTF8.GetString(resultBytes);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = result;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                await apiLogService.AddResponseLogAsync(log_response_param);
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = result;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (string.IsNullOrEmpty(result) && exs != null)
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    await apiLogService.AddResponseLogAsync(log_response_param);
+
+                    #endregion
+                }
 
                 #endregion
 
@@ -462,28 +540,47 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                //异步发送请求
-                var events = client.PostAsync(url, content).Result;
-                //异步获取请求的结果
-                var strResult = events.Content.ReadAsStringAsync().Result;
+                var strResult = string.Empty;
+                HttpResponseMessage events = null;
+                Exception exs = null;
 
-                #endregion
+                try
+                {
+                    //异步发送请求
+                    events = client.PostAsync(url, content).Result;
+                    if (events != null && events.IsSuccessStatusCode)
+                        //异步获取请求的结果
+                        strResult = events.Content.ReadAsStringAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                #region 新增响应日志
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = strResult;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (events != null)
+                        log_response_param.ErrorBody = $"StatusCode：{events.StatusCode.ToString()} | events: {Newtonsoft.Json.JsonConvert.SerializeObject(events)}";
+                    else
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    apiLogService.AddResponseLogAsync(log_response_param).Wait();
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = strResult;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
-
-                apiLogService.AddResponseLogAsync(log_response_param).Wait();
+                    #endregion
+                }
 
                 #endregion
 
                 #region 返回结果
 
+                if (string.IsNullOrEmpty(strResult))
+                    return default(T);
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult);
 
                 #endregion
@@ -562,23 +659,40 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                //异步发送请求
-                var events = client.PostAsync(url, content).Result;
-                //异步获取请求的结果
-                var strResult = events.Content.ReadAsStringAsync().Result;
+                var strResult = string.Empty;
+                HttpResponseMessage events = null;
+                Exception exs = null;
 
-                #endregion
+                try
+                {
+                    //异步发送请求
+                    events = client.PostAsync(url, content).Result;
+                    if (events != null && events.IsSuccessStatusCode)
+                        //异步获取请求的结果
+                        strResult = events.Content.ReadAsStringAsync().Result;
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                #region 新增响应日志
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = strResult;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (events != null)
+                        log_response_param.ErrorBody = $"StatusCode：{events.StatusCode.ToString()} | events: {Newtonsoft.Json.JsonConvert.SerializeObject(events)}";
+                    else
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    apiLogService.AddResponseLogAsync(log_response_param).Wait();
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = strResult;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
-
-                apiLogService.AddResponseLogAsync(log_response_param).Wait();
+                    #endregion
+                }
 
                 #endregion
 
@@ -668,28 +782,47 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                //异步发送请求
-                var events = await client.PostAsync(url, content);
-                //异步获取请求的结果
-                var strResult = await events.Content.ReadAsStringAsync();
+                var strResult = string.Empty;
+                HttpResponseMessage events = null;
+                Exception exs = null;
 
-                #endregion
+                try
+                {
+                    //异步发送请求
+                    events = await client.PostAsync(url, content);
+                    if (events != null && events.IsSuccessStatusCode)
+                        //异步获取请求的结果
+                        strResult = await events.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                #region 新增响应日志
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = strResult;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (events != null)
+                        log_response_param.ErrorBody = $"StatusCode：{events.StatusCode.ToString()} | events: {Newtonsoft.Json.JsonConvert.SerializeObject(events)}";
+                    else
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    await apiLogService.AddResponseLogAsync(log_response_param);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = strResult;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
-
-                await apiLogService.AddResponseLogAsync(log_response_param);
+                    #endregion
+                }
 
                 #endregion
 
                 #region 返回结果
 
+                if (string.IsNullOrEmpty(strResult))
+                    return default(T);
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult);
 
                 #endregion
@@ -768,23 +901,40 @@ namespace PoJun.Shadow.BaseFramework
                 #region 发起Http请求
 
                 var url = $"{host}{apiName}";
-                //异步发送请求
-                var events = await client.PostAsync(url, content);
-                //异步获取请求的结果
-                var strResult = await events.Content.ReadAsStringAsync();
+                var strResult = string.Empty;
+                HttpResponseMessage events = null;
+                Exception exs = null;
 
-                #endregion
+                try
+                {
+                    //异步发送请求
+                    events = await client.PostAsync(url, content);
+                    if (events != null && events.IsSuccessStatusCode)
+                        //异步获取请求的结果
+                        strResult = await events.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    exs = ex;
+                }
+                finally
+                {
+                    #region 新增响应日志
 
-                #region 新增响应日志
+                    var log_response_param = new AddResponseLogParam();
+                    log_response_param.IsError = false;
+                    log_response_param.ResponseBody = strResult;
+                    log_response_param.ResponseTime = DateTime.Now;
+                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
+                    if (events != null)
+                        log_response_param.ErrorBody = $"StatusCode：{events.StatusCode.ToString()} | events: {Newtonsoft.Json.JsonConvert.SerializeObject(events)}";
+                    else
+                        log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
+                    await apiLogService.AddResponseLogAsync(log_response_param);
 
-                var log_response_param = new AddResponseLogParam();
-                log_response_param.IsError = false;
-                log_response_param.ParentTraceID = log_request_param.TraceID;
-                log_response_param.ResponseBody = strResult;
-                log_response_param.ResponseTime = DateTime.Now;
-                log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
-
-                await apiLogService.AddResponseLogAsync(log_response_param);
+                    #endregion
+                }
 
                 #endregion
 

@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PoJun.Util" Version="3.0.1" />
+    <PackageReference Include="PoJun.Util" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
