@@ -112,7 +112,7 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     //异步发送请求
                     Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
-                    if (resultBytes == null || resultBytes.Any())
+                    if (resultBytes == null || !resultBytes.Any())
                         return default(T);
                     result = Encoding.UTF8.GetString(resultBytes);
 
@@ -216,7 +216,7 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     //异步发送请求
                     Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
-                    if (resultBytes == null || resultBytes.Any())
+                    if (resultBytes == null || !resultBytes.Any())
                         return null;
                     result = Encoding.UTF8.GetString(resultBytes);
 
@@ -323,7 +323,7 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     //异步发送请求
                     Byte[] resultBytes = await client.GetByteArrayAsync(url);
-                    if (resultBytes == null || resultBytes.Any())
+                    if (resultBytes == null || !resultBytes.Any())
                         return default(T);
                     result = Encoding.UTF8.GetString(resultBytes);
 
@@ -427,7 +427,7 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     //异步发送请求
                     Byte[] resultBytes = await client.GetByteArrayAsync(url);
-                    if (resultBytes == null || resultBytes.Any())
+                    if (resultBytes == null || !resultBytes.Any())
                         return null;
                     result = Encoding.UTF8.GetString(resultBytes);
 
