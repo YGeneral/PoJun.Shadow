@@ -10,19 +10,56 @@ namespace PoJun.Shadow.Tools
     /// <summary>
     /// Redis客户端工具类
     /// </summary>
-    public static class RedisHelperClient
+    public sealed class RedisHelperClient
     {
+        #region 初始化
+
         private static ConnectionMultiplexer Redis;
         private static IDatabase db;
 
-        static RedisHelperClient()
+        /// <summary>
+        /// 定义一个静态变量来保存类的实例
+        /// </summary>
+        private static RedisHelperClient uniqueInstance;
+
+        /// <summary>
+        /// 定义一个标识确保线程同步
+        /// </summary>
+        private static readonly object locker = new object();
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <returns></returns>
+        public static RedisHelperClient GetInstance()
         {
-            if (RedisConfig.GetInstance().RedisSwitch)
+            if (uniqueInstance == null)
             {
-                Redis = ConnectionMultiplexer.Connect(RedisConfig.GetInstance().RedisConnStr);
-                db = Redis.GetDatabase(int.Parse(RedisConfig.GetInstance().RedisDB));
+                lock (locker)
+                {
+                    // 如果类的实例不存在则创建，否则直接返回
+                    if (uniqueInstance == null)
+                    {
+                        uniqueInstance = new RedisHelperClient();
+                        Redis = ConnectionMultiplexer.Connect(RedisConfig.GetInstance().RedisExchangeHosts);
+                        db = Redis.GetDatabase(int.Parse(RedisConfig.GetInstance().RedisDB));
+                    }
+                }
             }
+            return uniqueInstance;
         }
+
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        private RedisHelperClient()
+        {
+
+        }
+
+        #endregion
+
+        #region 判断key是否存储
 
         /// <summary>
         /// 判断key是否存储
@@ -35,6 +72,8 @@ namespace PoJun.Shadow.Tools
             return await db.KeyExistsAsync(key);
         }
 
+        #endregion
+
         /// <summary>
         /// 保存一个对象
         /// </summary>
@@ -43,7 +82,7 @@ namespace PoJun.Shadow.Tools
         /// <param name="obj"></param>
         /// <param name="expiry"></param>
         /// <returns></returns>
-        public static async Task<bool> StringSetAsync<T>(string key, T obj, TimeSpan? expiry = default(TimeSpan?))
+        public static async Task<bool> SetAsync<T>(string key, T obj, TimeSpan? expiry = default(TimeSpan?))
         {
             key = AddSysCustomKey(key);
             string json = ConvertJson(obj);
@@ -55,7 +94,7 @@ namespace PoJun.Shadow.Tools
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static async Task<string> StringGetAsync(string key)
+        public static async Task<string> GetAsync(string key)
         {
             key = AddSysCustomKey(key);
             var result = await db.StringGetAsync(key);
@@ -68,7 +107,7 @@ namespace PoJun.Shadow.Tools
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static async Task<T> StringGetAsync<T>(string key)
+        public static async Task<T> GetAsync<T>(string key)
         {
             key = AddSysCustomKey(key);
             var result = await db.StringGetAsync(key);
@@ -85,7 +124,7 @@ namespace PoJun.Shadow.Tools
         /// <returns></returns>
         private static string AddSysCustomKey(string oldKey)
         {
-            return RedisConfig.GetInstance().SysCustomKey + oldKey;
+            return $"{RedisConfig.GetInstance().RedisKey}-{oldKey}";
         }
 
         /// <summary>

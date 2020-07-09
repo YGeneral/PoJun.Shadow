@@ -49,21 +49,30 @@ namespace PoJun.Shadow.WebApi.Filters
             if (context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.RepeatSubmitException).ToString())
             {
                 dto.DetailedStatus = DetailedStatusCode.RepeatSubmit;
-                dto.DetailedMessage = $"{dto.DetailedStatus.Description()}:{context.Exception.Message}";
+                if (string.IsNullOrEmpty(context.Exception.Message))
+                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
+                else
+                    dto.DetailedMessage = $"{context.Exception.Message}";
                 dto.GatewayStatus = GatewayStatusCode.Fail;
                 dto.GatewayMessage = dto.GatewayStatus.Description();
             }
             else if (context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.ParamErrorException).ToString())
             {
                 dto.DetailedStatus = DetailedStatusCode.ParamsError;
-                dto.DetailedMessage = $"{dto.DetailedStatus.Description()}:{context.Exception.Message}";
+                if (string.IsNullOrEmpty(context.Exception.Message))
+                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
+                else
+                    dto.DetailedMessage = $"{context.Exception.Message}";
                 dto.GatewayStatus = GatewayStatusCode.Fail;
                 dto.GatewayMessage = dto.GatewayStatus.Description();
             }
             else if(context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.FailException).ToString())
             {
                 dto.DetailedStatus = DetailedStatusCode.Fail;
-                dto.DetailedMessage = $"{dto.DetailedStatus.Description()}:{context.Exception.Message}";
+                if (string.IsNullOrEmpty(context.Exception.Message))
+                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
+                else
+                    dto.DetailedMessage = $"{context.Exception.Message}";
                 dto.GatewayStatus = GatewayStatusCode.Fail;
                 dto.GatewayMessage = dto.GatewayStatus.Description();
             }

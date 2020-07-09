@@ -26,11 +26,11 @@
     <PackageReference Include="PoJun.Dapper.Repository" Version="3.0.6" />
     <PackageReference Include="PoJun.MongoDB.Repository" Version="3.0.2" />
     <PackageReference Include="PoJun.MongoDB.Repository.IEntity" Version="2.0.2" />
-    <PackageReference Include="PoJun.Util" Version="3.0.2" />
+    <PackageReference Include="PoJun.Util" Version="4.0.1" />
     <PackageReference Include="Steeltoe.Common.Hosting" Version="2.4.4" />
     <PackageReference Include="Steeltoe.Extensions.Configuration.CloudFoundryCore" Version="2.4.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>

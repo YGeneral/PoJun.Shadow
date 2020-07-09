@@ -338,5 +338,134 @@ namespace PoJun.Shadow.Tools
         }
 
         #endregion
+
+        #region 获取百分比
+
+        /// <summary>
+        /// 获取百分比
+        /// </summary>
+        /// <param name="total">总数量</param>
+        /// <param name="part">部分数量</param>
+        /// <returns>部分数量站总数量的百分比</returns>
+        public static decimal GetPercentage(decimal total, decimal part)
+        {
+            decimal t = Math.Round((part / total), 2); //四舍五入,精确2位
+            return t * 100;
+        }
+
+        #endregion
+
+        #region 获取远程服务器内容，并转换成二进制数组
+
+        /// <summary>
+        /// 获取远程服务器内容，并转换成二进制数组
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static byte[] GetUrlByte(string url)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    List<byte> btlist = new List<byte>();
+                    int b = responseStream.ReadByte();
+                    while (b > -1)
+                    {
+                        btlist.Add((byte)b);
+                        b = responseStream.ReadByte();
+                    }
+                    return btlist.ToArray();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 判断字符串中是否不包含字符
+
+        /// <summary>
+        /// 判断字符串中是否不包含字符
+        /// </summary>
+        /// <param name="str">字符串</param>
+        /// <param name="strList">不包含字符集合</param>
+        /// <returns>如果不包含则返回true，如果包含则返回false</returns>
+        public static bool NotContains(this string str, List<string> strList)
+        {
+            foreach (var item in strList)
+            {
+                if (str.Contains(item))
+                    return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region 判断字符串中是否全部包含该集合中的字符
+
+        /// <summary>
+        /// 判断字符串中是否全部包含该集合中的字符
+        /// </summary>
+        /// <param name="str">原始字符串</param>
+        /// <param name="strList">字符集合</param>
+        /// <returns></returns>
+        public static bool Contains(this string str, List<string> strList)
+        {
+            foreach (var item in strList)
+            {
+                if (!str.Contains(item))
+                    return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region 判断字符串中是否全部安装顺序包含该集合中的字符
+
+        /// <summary>
+        /// 判断字符串中是否全部安装顺序包含该集合中的字符
+        /// </summary>
+        /// <param name="str">原始字符串</param>
+        /// <param name="strList">字符集合</param>
+        /// <returns></returns> 
+        public static bool OrderContains(this string str, List<string> strList)
+        {
+            var order = new List<int>();
+            foreach (var item in strList)
+            {
+                if (!str.Contains(item))
+                    return false;
+                order.Add(str.IndexOf(item));
+            }
+            var newOrder = order.OrderBy(x => x).ToList();
+            if (string.Join("", order) == string.Join("", newOrder))
+                return true;
+            else
+                return false;
+        }
+
+        #endregion
+
+        #region 在字符串中删除传入集合中的字符串
+
+        /// <summary>
+        /// 在字符串中删除传入集合中的字符串
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="strList">字符集合</param>
+        /// <returns></returns>
+        public static string Remove(this string str, List<string> strList)
+        {
+            foreach (var item in strList)
+            {
+                str = str.Replace(item, null);
+            }
+            return str;
+        }
+
+        #endregion
     }
 }

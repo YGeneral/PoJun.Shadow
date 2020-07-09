@@ -31,23 +31,18 @@ namespace PoJun.Shadow.Tools
         #endregion
 
         /// <summary>
-        /// 
+        /// 缓存前缀
         /// </summary>
-        public string SysCustomKey { get; set; }
+        public string RedisKey { get; set; }
 
         /// <summary>
-        /// 
+        /// 数据库连接字符串
         /// </summary>
-        public string RedisConnStr { get; set; }
+        public string RedisExchangeHosts { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public string RedisDB { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool RedisSwitch { get; set; }
     }
 }

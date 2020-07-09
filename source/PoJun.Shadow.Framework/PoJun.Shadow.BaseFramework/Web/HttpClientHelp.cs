@@ -53,8 +53,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public T HttpGet<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100)
+        public (T Data, string LogId) HttpGet<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -72,6 +73,14 @@ namespace PoJun.Shadow.BaseFramework
                 if (timeout > 0)
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
+                }
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
                 }
 
                 #endregion
@@ -113,7 +122,7 @@ namespace PoJun.Shadow.BaseFramework
                     //异步发送请求
                     Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
                     if (resultBytes == null || !resultBytes.Any())
-                        return default(T);
+                        return (default(T), log_request_param.TraceID);
                     result = Encoding.UTF8.GetString(resultBytes);
 
                 }
@@ -143,8 +152,8 @@ namespace PoJun.Shadow.BaseFramework
                 #region 返回结果
 
                 if (string.IsNullOrEmpty(result))
-                    return default(T);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
+                    return (default(T), log_request_param.TraceID);
+                return (Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result), log_request_param.TraceID);
 
                 #endregion
             }
@@ -157,8 +166,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public string HttpGet(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0)
+        public (string Data, string LogId) HttpGet(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -176,6 +186,14 @@ namespace PoJun.Shadow.BaseFramework
                 if (timeout > 0)
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
+                }
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
                 }
 
                 #endregion
@@ -217,7 +235,7 @@ namespace PoJun.Shadow.BaseFramework
                     //异步发送请求
                     Byte[] resultBytes = client.GetByteArrayAsync(url).Result;
                     if (resultBytes == null || !resultBytes.Any())
-                        return null;
+                        return (null, log_request_param.TraceID);
                     result = Encoding.UTF8.GetString(resultBytes);
 
                 }
@@ -246,7 +264,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 返回结果
 
-                return result;
+                return (result, log_request_param.TraceID);
 
                 #endregion
             }
@@ -264,8 +282,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public async Task<T> HttpGetAsync<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100)
+        public async Task<(T Data, string LogId)> HttpGetAsync<T>(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 100, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -283,6 +302,14 @@ namespace PoJun.Shadow.BaseFramework
                 if (timeout > 0)
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
+                }
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
                 }
 
                 #endregion
@@ -324,7 +351,7 @@ namespace PoJun.Shadow.BaseFramework
                     //异步发送请求
                     Byte[] resultBytes = await client.GetByteArrayAsync(url);
                     if (resultBytes == null || !resultBytes.Any())
-                        return default(T);
+                        return (default(T), log_request_param.TraceID);
                     result = Encoding.UTF8.GetString(resultBytes);
 
                 }
@@ -354,8 +381,8 @@ namespace PoJun.Shadow.BaseFramework
                 #region 返回结果
 
                 if (string.IsNullOrEmpty(result))
-                    return default(T);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result);
+                    return (default(T), log_request_param.TraceID);
+                return (Newtonsoft.Json.JsonConvert.DeserializeObject<T>(result), log_request_param.TraceID);
 
                 #endregion
             }
@@ -368,8 +395,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="apiName">接口名称(接口地址)</param>
         /// <param name="headers">请求头</param>
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public async Task<string> HttpGetAsync(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0)
+        public async Task<(string Data, string LogId)> HttpGetAsync(string host, string apiName, Dictionary<string, string> headers = null, int timeout = 0, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -387,6 +415,15 @@ namespace PoJun.Shadow.BaseFramework
                 if (timeout > 0)
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
+                }
+
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
                 }
 
                 #endregion
@@ -428,7 +465,7 @@ namespace PoJun.Shadow.BaseFramework
                     //异步发送请求
                     Byte[] resultBytes = await client.GetByteArrayAsync(url);
                     if (resultBytes == null || !resultBytes.Any())
-                        return null;
+                        return (null, log_request_param.TraceID);
                     result = Encoding.UTF8.GetString(resultBytes);
 
                 }
@@ -457,7 +494,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 返回结果
 
-                return result;
+                return (result, log_request_param.TraceID);
 
                 #endregion
             }
@@ -478,8 +515,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public T HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public (T Data, string LogId) HttpPost<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -490,8 +528,15 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
                 }
-
-                HttpContent content = new FormUrlEncodedContent(dicParameters);
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
+                }
+                HttpContent content = null;
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
@@ -499,6 +544,10 @@ namespace PoJun.Shadow.BaseFramework
                         content = new StringContent(dicParameters["json"]);
                     else
                         content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                }
+                else
+                {
+                    content = new FormUrlEncodedContent(dicParameters);
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -580,8 +629,8 @@ namespace PoJun.Shadow.BaseFramework
                 #region 返回结果
 
                 if (string.IsNullOrEmpty(strResult))
-                    return default(T);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult);
+                    return (default(T), log_request_param.TraceID);
+                return (Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult), log_request_param.TraceID);
 
                 #endregion
             }
@@ -597,8 +646,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public string HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public (string Data, string LogId) HttpPost(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -609,8 +659,15 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
                 }
-
-                HttpContent content = new FormUrlEncodedContent(dicParameters);
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
+                }
+                HttpContent content = null;
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
@@ -618,6 +675,10 @@ namespace PoJun.Shadow.BaseFramework
                         content = new StringContent(dicParameters["json"]);
                     else
                         content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                }
+                else
+                {
+                    content = new FormUrlEncodedContent(dicParameters);
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -698,7 +759,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 返回结果
 
-                return strResult;
+                return (strResult, log_request_param.TraceID);
 
                 #endregion
             }
@@ -707,7 +768,6 @@ namespace PoJun.Shadow.BaseFramework
         #endregion
 
         #region Post请求[异步]
-
 
         /// <summary>
         /// Post请求[异步]
@@ -720,8 +780,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public async Task<T> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public async Task<(T Data, string LogId)> HttpPostAsync<T>(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -732,8 +793,15 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
                 }
-
-                HttpContent content = new FormUrlEncodedContent(dicParameters);
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
+                }
+                HttpContent content = null;
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
@@ -741,6 +809,10 @@ namespace PoJun.Shadow.BaseFramework
                         content = new StringContent(dicParameters["json"]);
                     else
                         content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                }
+                else
+                {
+                    content = new FormUrlEncodedContent(dicParameters);
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -822,12 +894,13 @@ namespace PoJun.Shadow.BaseFramework
                 #region 返回结果
 
                 if (string.IsNullOrEmpty(strResult))
-                    return default(T);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult);
+                    return (default(T), log_request_param.TraceID);
+                return (Newtonsoft.Json.JsonConvert.DeserializeObject<T>(strResult), log_request_param.TraceID);
 
                 #endregion
             }
         }
+
 
         /// <summary>
         /// Post请求[异步]
@@ -839,8 +912,9 @@ namespace PoJun.Shadow.BaseFramework
         /// <param name="timeout">请求响应超时时间，单位/s(默认100秒)</param>
         /// <param name="contentType">请求类型</param>
         /// <param name="isMultilevelNestingJson">是否为多层嵌套json</param>
+        /// <param name="authorization">身份认证</param>
         /// <returns></returns>
-        public async Task<string> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false)
+        public async Task<(string Data, string LogId)> HttpPostAsync(string host, string apiName, IDictionary<string, string> dicParameters, Dictionary<string, string> headers = null, int timeout = 100, HttpContentType contentType = HttpContentType.Json, bool isMultilevelNestingJson = false, Dictionary<string, string> authorization = null)
         {
             var client = clientFactory.CreateClient("base");
             {
@@ -851,8 +925,15 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     client.Timeout = new TimeSpan(0, 0, timeout);
                 }
-
-                HttpContent content = new FormUrlEncodedContent(dicParameters);
+                //身份认证
+                if (authorization != null)
+                {
+                    foreach (var item in authorization)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(item.Key, item.Value);
+                    }
+                }
+                HttpContent content = null;
                 var _contentType = (contentType == HttpContentType.Json ? "application/json" : "application/x-www-form-urlencoded");
                 if (contentType == HttpContentType.Json)
                 {
@@ -860,6 +941,10 @@ namespace PoJun.Shadow.BaseFramework
                         content = new StringContent(dicParameters["json"]);
                     else
                         content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(dicParameters));
+                }
+                else
+                {
+                    content = new FormUrlEncodedContent(dicParameters);
                 }
                 content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(_contentType);
                 //设置HTTP请求头
@@ -940,7 +1025,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 返回结果
 
-                return strResult;
+                return (strResult, log_request_param.TraceID);
 
                 #endregion
             }
