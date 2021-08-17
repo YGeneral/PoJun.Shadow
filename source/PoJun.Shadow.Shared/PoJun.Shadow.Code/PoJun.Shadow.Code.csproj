@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\PoJun.Shadow.Code.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net5.0\PoJun.Shadow.Code.xml</DocumentationFile>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\PoJun.Shadow.Code.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net5.0\PoJun.Shadow.Code.xml</DocumentationFile>
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 

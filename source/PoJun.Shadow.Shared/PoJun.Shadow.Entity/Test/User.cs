@@ -1,4 +1,4 @@
-﻿using PoJun.Dapper;
+﻿using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +15,7 @@ namespace PoJun.Shadow.Entity.Test
         /// <summary>
         /// 
         /// </summary>
-        [Column("`Id`", ColumnKey.Primary, true)]
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int Id { get; set; }
 
         /// <summary>

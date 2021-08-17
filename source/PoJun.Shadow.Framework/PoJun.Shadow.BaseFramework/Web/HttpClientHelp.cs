@@ -87,16 +87,18 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 新增请求日志
 
-                var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
-                log_request_param.RequestTime = DateTime.Now;
-                log_request_param.ServerHost = host;
-                log_request_param.SystemID = SysUtil.GetSystemId();
-                log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
-                log_request_param.Level = 2;
-                log_request_param.ParentTraceID = SysUtil.GetTraceId();
-                log_request_param.RequestBody = null;
+                var log_request_param = new AddRequestLogParam
+                {
+                    APIName = apiName.ToString().ToLower(),
+                    ClientHost = PoJun.Util.Helpers.Web.Ip,
+                    RequestTime = DateTime.Now,
+                    ServerHost = host,
+                    SystemID = SysUtil.GetSystemId(),
+                    TraceID = PoJun.Util.Helpers.Id.GetGuidBy32(),
+                    Level = 2,
+                    ParentTraceID = SysUtil.GetTraceId(),
+                    RequestBody = null
+                };
                 if (SysUtil.GetTraceId() != null)
                 {
                     log_request_param.Level = 2;
@@ -106,7 +108,7 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     log_request_param.Level = 1;
                 }
-                var log_request_result = apiLogService.AddRequestLogAsync(log_request_param).Result;
+                _ = apiLogService.AddRequestLogAsync(log_request_param).Result;
 
                 #endregion
 
@@ -134,11 +136,13 @@ namespace PoJun.Shadow.BaseFramework
                 {
                     #region 新增响应日志
 
-                    var log_response_param = new AddResponseLogParam();
-                    log_response_param.IsError = false;
-                    log_response_param.ResponseBody = result;
-                    log_response_param.ResponseTime = DateTime.Now;
-                    log_response_param.ParentTraceID = log_request_param.TraceID;
+                    var log_response_param = new AddResponseLogParam
+                    {
+                        IsError = false,
+                        ResponseBody = result,
+                        ResponseTime = DateTime.Now,
+                        ParentTraceID = log_request_param.TraceID
+                    };
                     log_response_param.TimeCost = Convert.ToInt32((log_response_param.ResponseTime - log_request_param.RequestTime).TotalMilliseconds);
                     if (string.IsNullOrEmpty(result) && exs != null)
                         log_response_param.ErrorBody = $"Message：{exs.Message} | StackTrace: {exs.StackTrace} | Source: {exs.Source} | InnerException： {exs.InnerException?.ToString()}";
@@ -200,16 +204,18 @@ namespace PoJun.Shadow.BaseFramework
 
                 #region 新增请求日志
 
-                var log_request_param = new AddRequestLogParam();
-                log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
-                log_request_param.RequestTime = DateTime.Now;
-                log_request_param.ServerHost = host;
-                log_request_param.SystemID = SysUtil.GetSystemId();
-                log_request_param.TraceID = PoJun.Util.Helpers.Id.GetGuidBy32();
-                log_request_param.Level = 2;
-                log_request_param.ParentTraceID = SysUtil.GetTraceId();
-                log_request_param.RequestBody = null;
+                var log_request_param = new AddRequestLogParam
+                {
+                    APIName = apiName.ToString().ToLower(),
+                    ClientHost = PoJun.Util.Helpers.Web.Ip,
+                    RequestTime = DateTime.Now,
+                    ServerHost = host,
+                    SystemID = SysUtil.GetSystemId(),
+                    TraceID = PoJun.Util.Helpers.Id.GetGuidBy32(),
+                    Level = 2,
+                    ParentTraceID = SysUtil.GetTraceId(),
+                    RequestBody = null
+                };
                 if (SysUtil.GetTraceId() != null)
                 {
                     log_request_param.Level = 2;
@@ -318,7 +324,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -432,7 +438,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -565,7 +571,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -696,7 +702,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -830,7 +836,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();
@@ -962,7 +968,7 @@ namespace PoJun.Shadow.BaseFramework
 
                 var log_request_param = new AddRequestLogParam();
                 log_request_param.APIName = apiName.ToString().ToLower();
-                log_request_param.ClientHost = SysUtil.Ip;
+                log_request_param.ClientHost = PoJun.Util.Helpers.Web.Ip;
                 log_request_param.RequestTime = DateTime.Now;
                 log_request_param.ServerHost = host;
                 log_request_param.SystemID = SysUtil.GetSystemId();

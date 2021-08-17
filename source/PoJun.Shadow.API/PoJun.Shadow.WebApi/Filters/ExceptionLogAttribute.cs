@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using PoJun.Shadow.Api.ContractModel.Framework.Log;
 using PoJun.Shadow.Code;
 using PoJun.Shadow.ContractModel;
+using PoJun.Shadow.Exception;
 using PoJun.Shadow.IFramework.Log;
 using PoJun.Shadow.Tools;
 using PoJun.Util;
@@ -25,90 +29,92 @@ namespace PoJun.Shadow.WebApi.Filters
         /// </summary>
         private static IAPILogService apiLogService;
 
-        /// <summary>
-        /// 初始化
-        /// </summary>
-        /// <param name="_apiLogService"></param>
-        public ExceptionLogAttribute(IAPILogService _apiLogService)
+		/// <summary>
+		/// 文本日志
+		/// </summary>
+		private readonly ILogger<ExceptionLogAttribute> logger;
+
+		/// <summary>
+		/// 初始化
+		/// </summary>
+		/// <param name="_apiLogService"></param>
+		/// <param name="_logger"></param>
+		public ExceptionLogAttribute(IAPILogService _apiLogService, ILogger<ExceptionLogAttribute> _logger)
+		{
+			apiLogService = _apiLogService;
+			logger = _logger;
+		}
+
+		#endregion
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="context"></param>
+		/// <returns></returns>
+		public async Task OnExceptionAsync(ExceptionContext context)
         {
-            apiLogService = _apiLogService;
-        }
+			var dto = new ContractModel.BaseResponse();
+			bool isError = false;
 
-        #endregion
+			switch (context.Exception)
+			{
+				case BaseException baseException:
+					dto.DetailedStatus = baseException.DetailedStatus;
+					dto.GatewayStatus = baseException.GatewayStatus;
+					dto.DetailedMessage = $"{context.Exception.Message}";
+					dto.GatewayMessage = dto.GatewayStatus.Description();
+					break;
+				default:
+					dto.DetailedStatus = DetailedStatusCode.Error;
+					dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
+					dto.GatewayStatus = GatewayStatusCode.Fail;
+					dto.GatewayMessage = dto.GatewayStatus.Description();
+					isError = true;
+					break;
+			}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public async Task OnExceptionAsync(ExceptionContext context)
-        {
-            var dto = new BaseResponse();
-            bool isError = false;
+			var serializerSettings = new JsonSerializerSettings
+			{
+				//设置为不是驼峰命名
+				ContractResolver = new DefaultContractResolver()
+			};
 
-            if (context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.RepeatSubmitException).ToString())
-            {
-                dto.DetailedStatus = DetailedStatusCode.RepeatSubmit;
-                if (string.IsNullOrEmpty(context.Exception.Message))
-                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
-                else
-                    dto.DetailedMessage = $"{context.Exception.Message}";
-                dto.GatewayStatus = GatewayStatusCode.Fail;
-                dto.GatewayMessage = dto.GatewayStatus.Description();
-            }
-            else if (context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.ParamErrorException).ToString())
-            {
-                dto.DetailedStatus = DetailedStatusCode.ParamsError;
-                if (string.IsNullOrEmpty(context.Exception.Message))
-                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
-                else
-                    dto.DetailedMessage = $"{context.Exception.Message}";
-                dto.GatewayStatus = GatewayStatusCode.Fail;
-                dto.GatewayMessage = dto.GatewayStatus.Description();
-            }
-            else if(context.Exception.GetType().ToString() == typeof(PoJun.Shadow.Exception.FailException).ToString())
-            {
-                dto.DetailedStatus = DetailedStatusCode.Fail;
-                if (string.IsNullOrEmpty(context.Exception.Message))
-                    dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
-                else
-                    dto.DetailedMessage = $"{context.Exception.Message}";
-                dto.GatewayStatus = GatewayStatusCode.Fail;
-                dto.GatewayMessage = dto.GatewayStatus.Description();
-            }
-            else
-            {
-                dto.DetailedStatus = DetailedStatusCode.Error;
-                dto.DetailedMessage = $"{dto.DetailedStatus.Description()}";
-                dto.GatewayStatus = GatewayStatusCode.Fail;
-                dto.GatewayMessage = dto.GatewayStatus.Description();
-                isError = true;
-            }
-            var result = Newtonsoft.Json.JsonConvert.SerializeObject(dto);
-            context.Result = new ContentResult() { Content = result };
+			if (APIConfig.GetInstance().IsLittleCamelFormat)
+				//设置为驼峰命名
+				serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
+			var result = JsonConvert.SerializeObject(dto, serializerSettings);
+			context.Result = new ContentResult() { Content = result };
 
-            #region 新增接口返回日志
+			#region 新增接口返回日志
 
-            object logTraceID = null;
-            context.HttpContext.Items.TryGetValue(nameof(APILogConfig.PoJun_LogTraceID), out logTraceID);
-            if (logTraceID != null)
-            {
-                object _requestTime = null;
-                context.HttpContext.Items.TryGetValue(nameof(APILogConfig.RequestTime), out _requestTime);
-                var logParam = new AddResponseLogParam();
-                logParam.ResponseBody = result;
-                logParam.ErrorBody = $"StackTrace:{context.Exception.StackTrace} | Message:{context.Exception.Message} | Source:{context.Exception.Source}";
-                logParam.IsError = isError;
-                logParam.ParentTraceID = logTraceID.SafeString();
-                logParam.ResponseTime = DateTime.Now;
-                logParam.TimeCost = Convert.ToInt32((logParam.ResponseTime - Convert.ToDateTime(_requestTime)).TotalMilliseconds);
-                await apiLogService.AddResponseLogAsync(logParam);
-            }
+			context.HttpContext.Items.TryGetValue(nameof(APILogConfig.PoJun_LogTraceID), out object logTraceID);
+			if (logTraceID != null)
+			{
+				context.HttpContext.Items.TryGetValue(nameof(APILogConfig.RequestTime), out object _requestTime);
+				var logParam = new AddResponseLogParam
+				{
+					ResponseBody = result,
+					ErrorBody = $"StackTrace:{context.Exception.StackTrace} | Message:{context.Exception.Message} | Source:{context.Exception.Source}",
+					IsError = isError,
+					ParentTraceID = logTraceID.SafeString(),
+					ResponseTime = DateTime.Now
+				};
+				logParam.TimeCost = Convert.ToInt32((logParam.ResponseTime - Convert.ToDateTime(_requestTime)).TotalMilliseconds);
+				try
+				{
+					await apiLogService.AddResponseLogAsync(logParam);
+				}
+				catch (System.Exception)
+				{
+					logger.LogWarning($"{Newtonsoft.Json.JsonConvert.SerializeObject(logParam)},");
+				}
+			}
 
-            #endregion
+			#endregion
 
-            context.Exception = null;
-        }
+			context.Exception = null;
+		}
     }
 }

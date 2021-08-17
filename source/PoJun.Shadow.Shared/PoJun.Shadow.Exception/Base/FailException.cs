@@ -7,7 +7,7 @@ namespace PoJun.Shadow.Exception
     /// <summary>
     /// 失败异常
     /// </summary>
-    public class FailException : System.Exception
+    public class FailException : BaseException
     {
         /// <summary>
         /// 

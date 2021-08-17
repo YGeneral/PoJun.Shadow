@@ -12,8 +12,8 @@ namespace PoJun.Shadow.Api.IRepository.Test
 	/// 创建人：杨江军
 	/// 创建时间：2020/4/7 12:00:33
 	/// </summary>
-	public interface IUserRepository : IBaseRepositoryToPoJun_Shadow<User>
-    {
+	public interface IUserRepository : IBaseRepository<User>
+	{
         
     }
 }

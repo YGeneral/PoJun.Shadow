@@ -1,6 +1,12 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyModel;
+using PoJun.Shadow.BaseFramework;
+using PoJun.Shadow.IFramework.Web;
+using PoJun.Shadow.Tools;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +27,26 @@ namespace PoJun.Shadow.WebApi
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder)
         {
+            #region Quartz调度框架注册
+
+            builder.RegisterType<QuartzStartup>().SingleInstance();
+            builder.RegisterType<StdSchedulerFactory>().As<ISchedulerFactory>().SingleInstance();
+            builder.RegisterType<IOCJobFactory>().As<IJobFactory>().SingleInstance();
+
+            #endregion
+
+            #region 自定义job注册
+
+            //builder.RegisterType<TestJob>().SingleInstance();
+
+            #endregion
+
+            #region 注入HttpClientHelp
+
+            builder.RegisterType<HttpClientHelp>().As<IHttpClientHelp>().SingleInstance();
+
+            #endregion
+
             //注册Service中的对象,Service中的类要以Service结尾，否则注册失败
             builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.Api.Service")).Where(a => a.Name.EndsWith("Service")).AsImplementedInterfaces();
             builder.RegisterAssemblyTypes(GetAssemblyByName("PoJun.Shadow.LogFramework")).Where(a => a.Name.EndsWith("Service")).AsImplementedInterfaces();

@@ -1,16 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\PoJun.Shadow.Api.ContractModel.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\net5.0\PoJun.Shadow.Api.ContractModel.xml</DocumentationFile>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\PoJun.Shadow.Api.ContractModel.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\net5.0\PoJun.Shadow.Api.ContractModel.xml</DocumentationFile>
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
 
@@ -24,7 +24,8 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="PoJun.Util" Version="4.0.8" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

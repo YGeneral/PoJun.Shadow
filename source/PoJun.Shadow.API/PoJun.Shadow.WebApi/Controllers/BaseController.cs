@@ -11,7 +11,6 @@ namespace PoJun.Shadow.WebApi.Controllers
     /// 
     /// </summary>
     [Produces("application/json")]
-    [ServiceFilter(typeof(PoJun.Shadow.WebApi.Filters.AuthenticationAttribute))]
     public class BaseController : ControllerBase
     {
 

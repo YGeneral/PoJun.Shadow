@@ -33,8 +33,8 @@ namespace PoJun.Shadow.Tools
         public string Environment { get; set; }
 
         /// <summary>
-        /// 跨域请求的来源
+        /// 是否为小驼峰格式
         /// </summary>
-        public string RequestSource { get; set; }
+        public bool IsLittleCamelFormat { get; set; }
     }
 }

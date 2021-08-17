@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using PoJun.Shadow.Api.ContractModel.Framework.Log;
 using PoJun.Shadow.IFramework.Log;
 using PoJun.Shadow.Tools;
@@ -22,12 +23,19 @@ namespace PoJun.Shadow.WebApi.Filters
         private static IAPILogService apiLogService;
 
         /// <summary>
-        /// 初始化 
+        /// 文本日志
+        /// </summary>
+        private readonly ILogger<ResponseLogAttribute> logger;
+
+        /// <summary>
+        /// 
         /// </summary>
         /// <param name="_apiLogService"></param>
-        public ResponseLogAttribute(IAPILogService _apiLogService)
+        /// <param name="_logger"></param>
+        public ResponseLogAttribute(IAPILogService _apiLogService, ILogger<ResponseLogAttribute> _logger)
         {
             apiLogService = _apiLogService;
+            logger = _logger;
         }
 
         #endregion
@@ -42,24 +50,31 @@ namespace PoJun.Shadow.WebApi.Filters
         {
             #region 新增接口返回日志
 
-            object logTraceID = null;
-            context.HttpContext.Items.TryGetValue(nameof(APILogConfig.PoJun_LogTraceID), out logTraceID);
+            context.HttpContext.Items.TryGetValue(nameof(APILogConfig.PoJun_LogTraceID), out object logTraceID);
             if (logTraceID != null)
             {
-                object _requestTime = null;
-                context.HttpContext.Items.TryGetValue(nameof(APILogConfig.RequestTime), out _requestTime);
+                context.HttpContext.Items.TryGetValue(nameof(APILogConfig.RequestTime), out object _requestTime);
                 var logParam = new AddResponseLogParam();
                 if (context.Result != null)
                 {
                     dynamic json = Newtonsoft.Json.Linq.JToken.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(context.Result)) as dynamic;
-                    logParam.ResponseBody = Convert.ToString(json.Value);
+                    logParam.ResponseBody = System.Convert.ToString(json.Value);
                 }
                 logParam.IsError = false;
                 logParam.ParentTraceID = logTraceID.ToString();
                 logParam.ResponseTime = DateTime.Now;
-                logParam.TimeCost = Convert.ToInt32((logParam.ResponseTime - Convert.ToDateTime(_requestTime)).TotalMilliseconds);
-                await apiLogService.AddResponseLogAsync(logParam);
+                logParam.TimeCost = System.Convert.ToInt32((logParam.ResponseTime - System.Convert.ToDateTime(_requestTime)).TotalMilliseconds);
+                try
+                {
+                    await apiLogService.AddResponseLogAsync(logParam);
+                }
+                catch (System.Exception)
+                {
+                    logger.LogWarning($"{Newtonsoft.Json.JsonConvert.SerializeObject(logParam)},");
+                }
             }
+
+            await base.OnResultExecutionAsync(context, next);
 
             #endregion
 

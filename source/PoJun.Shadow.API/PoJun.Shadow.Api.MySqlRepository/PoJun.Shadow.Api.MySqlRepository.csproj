@@ -1,12 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningsAsErrors>;NU1605;CS1591;CS1998;NU1701;CS1572;CS1573;</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningsAsErrors>;NU1605;CS1591;CS1998;NU1701;CS1572;CS1573;</WarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PoJun.Dapper.Repository" Version="3.0.6" />
-    <PackageReference Include="PoJun.Util" Version="4.0.1" />
+    <PackageReference Include="PoJun.Util" Version="4.0.8" />
   </ItemGroup>
 
   <ItemGroup>

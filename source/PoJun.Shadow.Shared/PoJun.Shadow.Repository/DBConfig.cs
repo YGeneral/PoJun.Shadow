@@ -52,9 +52,9 @@ namespace PoJun.Shadow.Repository
         public string PoJun_Shadow { get; set; }
 
         /// <summary>
-        /// 日志库地址(字段名就是数据库名)
+        /// 是否开启SQL语句控制台打印功能
         /// </summary>
-        public string PoJun_Shadow_Logs { get; set; }
+        public bool IsSqlDebug { get; set; }
     }
 
     #endregion
@@ -72,9 +72,9 @@ namespace PoJun.Shadow.Repository
         public string PoJun_Shadow { get; set; }
 
         /// <summary>
-        /// 日志库地址(字段名就是数据库名)
+        /// 是否开启SQL语句控制台打印功能
         /// </summary>
-        public string PoJun_Shadow_Logs { get; set; }
+        public bool IsSqlDebug { get; set; }
     }
 
     #endregion

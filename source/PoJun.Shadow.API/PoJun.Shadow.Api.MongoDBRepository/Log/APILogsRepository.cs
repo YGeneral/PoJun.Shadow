@@ -14,7 +14,7 @@ namespace PoJun.Shadow.Api.MongoDBRepository.Log
     /// <summary>
     /// 【接口日志】仓储
     /// </summary>
-    public class APILogsRepository : BaseRepositoryToPoJun_Shadow_Logs<APILogs, string>, IAPILogsRepository
+    public class APILogsRepository : BaseLogsRepository<APILogs, string>, IAPILogsRepository
     {
         #region 新增请求日志
 
@@ -25,7 +25,7 @@ namespace PoJun.Shadow.Api.MongoDBRepository.Log
         /// <returns></returns>
         public async Task<AddRequestLogModel> AddRequestLogAsync(AddRequestLogParam param)
         {
-            var entity = param.MapTo(new APILogs());
+            var entity = param.MapTo<APILogs>();
             entity.ID = param.TraceID;
             entity.RequestTime = DateTime.Now;
             await this.InsertAsync(entity);
