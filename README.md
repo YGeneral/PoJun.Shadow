@@ -1,3 +1,18 @@
+# 更新日志
+
+## 2021/08/17
+
+1、框架升级到.Net 5
+
+2、关系型数据库的ORM由Dapper替换为SqlSugar
+
+3、优化整理了WebApi层的代码对很多附件功能进行分类封装，极大减少Startup.cs的配置代码
+
+4、增加上传文件大小可配置功能
+
+5、增加App.Metrics的健康检测（但是需要单独安装其配套软件，默认禁用）
+
+
 # 绝影框架（Net 5微服务架构的WebApi框架）
 
 目前本框架支持的数据为：MongoDB、MySql、SqlServer(默认使用的数据库为MongoDB)
